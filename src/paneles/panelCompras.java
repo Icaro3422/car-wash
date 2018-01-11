@@ -17,17 +17,19 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
+        
 public class panelCompras extends javax.swing.JPanel {
 
     conexion conexion;
     PreparedStatement ps;
     ResultSet rs;
     TableRowSorter trs;
-   
+  
     public panelCompras() {
         initComponents();
         calendario();
         agregarTabla();
+      
     }
 
     @SuppressWarnings("unchecked")
@@ -633,7 +635,7 @@ public class panelCompras extends javax.swing.JPanel {
             
         trs = new TableRowSorter(modelo);
         tbResgistrosCompras.setRowSorter(trs);
-        
+        /////////
      
         
         String[] dato = new String[7];
@@ -661,7 +663,7 @@ public class panelCompras extends javax.swing.JPanel {
         
     }
     
-    
+     
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

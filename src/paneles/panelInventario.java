@@ -25,7 +25,8 @@ public class panelInventario extends javax.swing.JPanel {
     
     public panelInventario() {
         initComponents();
-        agregarTablaInventario();
+        agregarTabla();
+        //agregarTablaInventario();
     }
 
    
@@ -298,7 +299,8 @@ public class panelInventario extends javax.swing.JPanel {
 
                 int res = ps.executeUpdate();
                 if (res > 0) {
-                    agregarTablaInventario();
+                    //agregarTablaInventario();
+                    agregarTabla();
                     JOptionPane.showMessageDialog(null, "Producto modificado");
                     limpiarCajas();
                 } else {
@@ -364,7 +366,7 @@ public class panelInventario extends javax.swing.JPanel {
 
                 int res = ps.executeUpdate();
                 if (res > 0) {
-                    agregarTablaInventario();
+                    //agregarTablaInventario();
                     JOptionPane.showMessageDialog(null, "Producto eliminado");
                     limpiarCajas();
                 } else {
@@ -391,7 +393,7 @@ public class panelInventario extends javax.swing.JPanel {
 
     
     
-    private void agregarTablaInventario(){
+   private void agregarTabla(){
     
         conexion = new conexion();
         Connection co = conexion.getConnection();
@@ -433,8 +435,8 @@ public class panelInventario extends javax.swing.JPanel {
             
         trs = new TableRowSorter(modelo);
         tbResgistrosCompras.setRowSorter(trs);
-        
-     */
+        */
+     
         
         String[] dato = new String[6];
         
@@ -469,6 +471,57 @@ public class panelInventario extends javax.swing.JPanel {
         txtProveedor.setText(null);
         
     }
+    
+    
+   /*private  void agregarTablaInventario(){
+        conexion = new conexion();
+        Connection con = conexion.getConnection();
+        
+        String sql = "INSERT INTO inventario (codigo,nombre,proveedor,cantidad,precioCompra,fecha) SELECT compras.codigo,compras.nombre,compras.proveedor,compras.cantidad,compras.precioCompra,compras.fecha FROM compras";
+        //cómo ejecuto este query para que lo datos de la tabla compras se me muestren en la tabla inventario ???????
+        Statement st;
+        
+        DefaultTableModel modelo = new DefaultTableModel(){
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 6; 
+            }
+        };
+        
+        modelo.addColumn("codigo");
+        modelo.addColumn("nombre");
+        modelo.addColumn("proveedor");
+        modelo.addColumn("cantidad");
+        modelo.addColumn("precioCompra");
+        modelo.addColumn("fecha");
+        
+        tbRegistros.setModel(modelo);
+        
+        String[] dato = new String[6];
+        
+        try {
+            st = con.createStatement();
+            ResultSet result = st.executeQuery(sql);
+            
+            while(result.next()){
+                
+                dato[0] = result.getString(1);
+                dato[1] = result.getString(2);
+                dato[2] = result.getString(3);
+                dato[3] = result.getString(4);
+                dato[4] = result.getString(5);
+                dato[5] = result.getString(6);
+                modelo.addRow(dato);
+             }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        
+        
+    }*/
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
