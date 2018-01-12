@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -25,8 +27,8 @@ public class panelInventario extends javax.swing.JPanel {
     
     public panelInventario() {
         initComponents();
-        agregarTabla();
-        //agregarTablaInventario();
+        calendario();
+        agregarTabla(); 
     }
 
    
@@ -61,6 +63,18 @@ public class panelInventario extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/archivo-portapapeles-comprobado.png"))); // NOI18N
         jLabel1.setText("Inventario");
+
+        txtCodigo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+
+        txtNombre.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+
+        txtProveedor.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+
+        txtCantidad.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+
+        txtPrecioCompra.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+
+        txtFecha.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -272,7 +286,7 @@ public class panelInventario extends javax.swing.JPanel {
                     .addComponent(btnBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(21, 21, 21)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -299,7 +313,7 @@ public class panelInventario extends javax.swing.JPanel {
 
                 int res = ps.executeUpdate();
                 if (res > 0) {
-                    //agregarTablaInventario();
+                    
                     agregarTabla();
                     JOptionPane.showMessageDialog(null, "Producto modificado");
                     limpiarCajas();
@@ -366,7 +380,7 @@ public class panelInventario extends javax.swing.JPanel {
 
                 int res = ps.executeUpdate();
                 if (res > 0) {
-                    //agregarTablaInventario();
+                    agregarTabla();
                     JOptionPane.showMessageDialog(null, "Producto eliminado");
                     limpiarCajas();
                 } else {
@@ -383,12 +397,12 @@ public class panelInventario extends javax.swing.JPanel {
 
     private void tbRegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbRegistrosMouseClicked
         int seleccion = tbRegistros.rowAtPoint(evt.getPoint());
-        txtCodigo.setText(String.valueOf(tbRegistros.getValueAt(seleccion,1)));
-        txtNombre.setText(String.valueOf(tbRegistros.getValueAt(seleccion,2)));
-        txtProveedor.setText(String.valueOf(tbRegistros.getValueAt(seleccion,3)));
-        txtCantidad.setText(String.valueOf(tbRegistros.getValueAt(seleccion,4)));
-        txtPrecioCompra.setText(String.valueOf(tbRegistros.getValueAt(seleccion,5)));
-        txtFecha.setText(String.valueOf(tbRegistros.getValueAt(seleccion,6)));
+        txtCodigo.setText(String.valueOf(tbRegistros.getValueAt(seleccion,0)));
+        txtNombre.setText(String.valueOf(tbRegistros.getValueAt(seleccion,1)));
+        txtProveedor.setText(String.valueOf(tbRegistros.getValueAt(seleccion,2)));
+        txtCantidad.setText(String.valueOf(tbRegistros.getValueAt(seleccion,3)));
+        txtPrecioCompra.setText(String.valueOf(tbRegistros.getValueAt(seleccion,4)));
+        txtFecha.setText(String.valueOf(tbRegistros.getValueAt(seleccion,5)));
     }//GEN-LAST:event_tbRegistrosMouseClicked
 
     
@@ -438,7 +452,7 @@ public class panelInventario extends javax.swing.JPanel {
         */
      
         
-        String[] dato = new String[6];
+        String[] dato = new String[7];
         
         try {
             st = co.createStatement();
@@ -457,6 +471,7 @@ public class panelInventario extends javax.swing.JPanel {
             
         } catch (SQLException ex) {
             System.out.println(ex);
+            
         }
         
         
@@ -472,56 +487,16 @@ public class panelInventario extends javax.swing.JPanel {
         
     }
     
-    
-   /*private  void agregarTablaInventario(){
-        conexion = new conexion();
-        Connection con = conexion.getConnection();
+      private void calendario(){
         
-        String sql = "INSERT INTO inventario (codigo,nombre,proveedor,cantidad,precioCompra,fecha) SELECT compras.codigo,compras.nombre,compras.proveedor,compras.cantidad,compras.precioCompra,compras.fecha FROM compras";
-        //cómo ejecuto este query para que lo datos de la tabla compras se me muestren en la tabla inventario ???????
-        Statement st;
+        Calendar calendario = new GregorianCalendar();
+        String dia = Integer.toString(calendario.get(Calendar.DATE));
+        String mes = Integer.toString(1);
+        String annio = Integer.toString(calendario.get(Calendar.YEAR));
+        txtFecha.setText(annio+"-"+ mes +"-"+dia);
         
-        DefaultTableModel modelo = new DefaultTableModel(){
-
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return column == 6; 
-            }
-        };
-        
-        modelo.addColumn("codigo");
-        modelo.addColumn("nombre");
-        modelo.addColumn("proveedor");
-        modelo.addColumn("cantidad");
-        modelo.addColumn("precioCompra");
-        modelo.addColumn("fecha");
-        
-        tbRegistros.setModel(modelo);
-        
-        String[] dato = new String[6];
-        
-        try {
-            st = con.createStatement();
-            ResultSet result = st.executeQuery(sql);
-            
-            while(result.next()){
-                
-                dato[0] = result.getString(1);
-                dato[1] = result.getString(2);
-                dato[2] = result.getString(3);
-                dato[3] = result.getString(4);
-                dato[4] = result.getString(5);
-                dato[5] = result.getString(6);
-                modelo.addRow(dato);
-             }
-            
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-        
-        
-    }*/
-    
+    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;

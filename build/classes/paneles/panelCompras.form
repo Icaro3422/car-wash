@@ -256,7 +256,7 @@
     <Component class="javax.swing.JTextField" name="txtNombre">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Century Gothic" size="11" style="0"/>
+          <Font name="Century Gothic" size="14" style="0"/>
         </Property>
       </Properties>
     </Component>
@@ -274,7 +274,7 @@
     <Component class="javax.swing.JTextField" name="txtProveedor">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Century Gothic" size="11" style="0"/>
+          <Font name="Century Gothic" size="14" style="0"/>
         </Property>
       </Properties>
     </Component>
@@ -292,7 +292,7 @@
     <Component class="javax.swing.JTextField" name="txtCantidad">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Century Gothic" size="11" style="0"/>
+          <Font name="Century Gothic" size="14" style="0"/>
         </Property>
       </Properties>
       <Events>
@@ -313,7 +313,7 @@
     <Component class="javax.swing.JTextField" name="txtPrecioCompra">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Century Gothic" size="11" style="0"/>
+          <Font name="Century Gothic" size="14" style="0"/>
         </Property>
       </Properties>
       <Events>
@@ -334,7 +334,7 @@
     <Component class="javax.swing.JTextField" name="txtFecha">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Century Gothic" size="11" style="0"/>
+          <Font name="Century Gothic" size="14" style="0"/>
         </Property>
       </Properties>
     </Component>
@@ -454,7 +454,7 @@
     <Component class="javax.swing.JTextField" name="txtClave">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Century Gothic" size="11" style="0"/>
+          <Font name="Century Gothic" size="14" style="0"/>
         </Property>
       </Properties>
       <Events>

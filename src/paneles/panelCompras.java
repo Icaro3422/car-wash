@@ -126,19 +126,19 @@ public class panelCompras extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Código");
 
-        txtNombre.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        txtNombre.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Nombre");
 
-        txtProveedor.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        txtProveedor.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Proveedor");
 
-        txtCantidad.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        txtCantidad.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCantidadKeyTyped(evt);
@@ -149,7 +149,7 @@ public class panelCompras extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Cantidad");
 
-        txtPrecioCompra.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        txtPrecioCompra.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtPrecioCompra.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtPrecioCompraKeyTyped(evt);
@@ -160,7 +160,7 @@ public class panelCompras extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Precio de compra");
 
-        txtFecha.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        txtFecha.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
         lblFecha.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         lblFecha.setForeground(new java.awt.Color(255, 255, 255));
@@ -251,7 +251,7 @@ public class panelCompras extends javax.swing.JPanel {
             }
         });
 
-        txtClave.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        txtClave.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtClaveKeyTyped(evt);
@@ -390,7 +390,7 @@ public class panelCompras extends javax.swing.JPanel {
         try {
             conexion = new conexion();
             try (Connection reg = conexion.getConnection()){
-                ps = reg.prepareStatement("INSERT INTO compras (codigo,nombre,proveedor,cantidad,precioCompra,fecha) VALUES(?,?,?,?,?,?)");
+                ps = reg.prepareStatement("INSERT INTO compras (codigo,nombre,proveedor,cantidad,precioCompra,fecha) VALUES(?,?,?,?,?,?)");                  
                 int i = 1;
                 ps.setInt(i++, Integer.parseInt(txtClave.getText()));
                 ps.setString(i++, txtNombre.getText());
@@ -398,7 +398,7 @@ public class panelCompras extends javax.swing.JPanel {
                 ps.setInt(i++, Integer.parseInt(txtCantidad.getText()));
                 ps.setInt(i++, Integer.parseInt(txtPrecioCompra.getText()));
                 ps.setDate(i++, Date.valueOf(txtFecha.getText()));
-
+            
                 int res = ps.executeUpdate();
                 if (res > 0) {
                     agregarTabla();
