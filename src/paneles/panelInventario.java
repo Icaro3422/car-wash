@@ -391,6 +391,7 @@ public class panelInventario extends javax.swing.JPanel {
                 txtProveedor.setText(rs.getString("proveedor"));
                 txtCantidad.setText(rs.getString("cantidad"));
                 txtPrecioCompra.setText(rs.getString("precioCompra"));
+                txtPrecioVenta.setText(rs.getString("precioVenta"));
                 txtFecha.setText(rs.getString("fecha"));
             }
             else{
