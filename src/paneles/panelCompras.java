@@ -17,14 +17,13 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-        
 public class panelCompras extends javax.swing.JPanel {
 
     conexion conexion;
     PreparedStatement ps;
     ResultSet rs;
     TableRowSorter trs;
-  
+
     public panelCompras() {
         initComponents();
         calendario();
@@ -397,53 +396,50 @@ public class panelCompras extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
+
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
-        
-        try {
-            conexion = new conexion();
-            try (Connection reg = conexion.getConnection()){
-                ps = reg.prepareStatement("INSERT INTO compras (codigo,nombre,proveedor,cantidad,precioCompra,precioVenta,fecha) VALUES(?,?,?,?,?,?,?)");                  
+        conexion = new conexion();
+        try (Connection reg = conexion.getConnection()) {
+            if (txtClave.getText() != null) {
+                ps = reg.prepareStatement("INSERT INTO compras (codigo,nombre,proveedor,cantidad,precioCompra,precioVenta,fecha) VALUES(?,?,?,?,?,?,?)");
                 int i = 1;
                 ps.setInt(i++, Integer.parseInt(txtClave.getText()));
                 ps.setString(i++, txtNombre.getText());
                 ps.setString(i++, txtProveedor.getText());
                 ps.setInt(i++, Integer.parseInt(txtCantidad.getText()));
                 ps.setInt(i++, Integer.parseInt(txtPrecioCompra.getText()));
-                ps.setInt(i++,Integer.parseInt(txtPrecioVenta.getText()));
+                ps.setInt(i++, Integer.parseInt(txtPrecioVenta.getText()));
                 ps.setDate(i++, Date.valueOf(txtFecha.getText()));
-            
+
                 int res = ps.executeUpdate();
                 if (res > 0) {
+                    VerificarSiExisteElProducto(Integer.parseInt(txtClave.getText()), txtNombre.getText(), txtProveedor.getText(), Integer.parseInt(txtCantidad.getText()), Integer.parseInt(txtPrecioCompra.getText()), Integer.parseInt(txtPrecioVenta.getText()));
                     agregarTabla();
-                    JOptionPane.showMessageDialog(null, "Producto guardado");
                     limpiarCajas();
-                    
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Error: El producto no ha podido ser guardado");
                     limpiarCajas();
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "Debe ingresar campos necesarios");
             }
 
         } catch (SQLException | NumberFormatException e) {
-
-            JOptionPane.showMessageDialog(null,"La conexión no se ha podido establecer con la base de datos");
+            JOptionPane.showMessageDialog(null, e);
         }
-
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaActionPerformed
-        
-        
+
         try {
             conexion = new conexion();
             Connection co = conexion.getConnection();
             ps = co.prepareStatement("SELECT * FROM compras WHERE codigo=?");
             ps.setInt(1, Integer.parseInt(txtClave.getText()));
             rs = ps.executeQuery();
-            
+
             if (rs.next()) {
                 txtClave.setText(rs.getString("codigo"));
                 txtNombre.setText(rs.getString("nombre"));
@@ -452,48 +448,41 @@ public class panelCompras extends javax.swing.JPanel {
                 txtPrecioCompra.setText(rs.getString("precioCompra"));
                 txtPrecioVenta.setText(rs.getString("precioVenta"));
                 txtFecha.setText(rs.getString("fecha"));
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "No existe un registro con dicha clave");
             }
-            
+
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"La conexión no se ha podido establecer con la base de datos");
+            JOptionPane.showMessageDialog(null, ex);
         }
-        
-      
-        
-        
+
+
     }//GEN-LAST:event_btnBusquedaActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        
-        try {
-            conexion = new conexion();
-            try (Connection reg = conexion.getConnection()) {
-                ps = reg.prepareStatement("UPDATE compras SET nombre=?,proveedor=?,cantidad=?,precioCompra=?,precioVenta=? WHERE codigo=?");
-                
-                ps.setString(1, txtNombre.getText());
-                ps.setString(2, txtProveedor.getText());
-                ps.setInt(3, Integer.parseInt(txtCantidad.getText()));
-                ps.setInt(4, Integer.parseInt(txtPrecioCompra.getText()));
-                ps.setInt(5, Integer.parseInt(txtPrecioVenta.getText()));
-                ps.setInt(6, Integer.parseInt(txtClave.getText()));
+        conexion = new conexion();
+        try (Connection reg = conexion.getConnection()) {
+            ps = reg.prepareStatement("UPDATE compras SET nombre=?,proveedor=?,cantidad=?,precioCompra=?,precioVenta=? WHERE codigo=?");
 
-                int res = ps.executeUpdate();
-                if (res > 0) {
-                    agregarTabla();
-                    JOptionPane.showMessageDialog(null, "Producto modificado");
-                    limpiarCajas();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error: El producto no ha podido ser modificado");
-                    limpiarCajas();
-                }
+            ps.setString(1, txtNombre.getText());
+            ps.setString(2, txtProveedor.getText());
+            ps.setInt(3, Integer.parseInt(txtCantidad.getText()));
+            ps.setInt(4, Integer.parseInt(txtPrecioCompra.getText()));
+            ps.setInt(5, Integer.parseInt(txtPrecioVenta.getText()));
+            ps.setInt(6, Integer.parseInt(txtClave.getText()));
+
+            int res = ps.executeUpdate();
+            if (res > 0) {
+                agregarTabla();
+                JOptionPane.showMessageDialog(null, "Producto modificado");
+                limpiarCajas();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error: El producto no ha podido ser modificado");
+                limpiarCajas();
             }
-
         } catch (SQLException | NumberFormatException e) {
 
-            JOptionPane.showMessageDialog(null,"La conexión no se ha podido establecer con la base de datos");
+            JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
@@ -503,10 +492,10 @@ public class panelCompras extends javax.swing.JPanel {
             try (Connection reg = conexion.getConnection()) {
                 ps = reg.prepareStatement("DELETE FROM compras WHERE codigo=?");
                 ps.setInt(1, Integer.parseInt(txtClave.getText()));
-              
+
                 int res = ps.executeUpdate();
                 if (res > 0) {
-                    
+
                     agregarTabla();
                     JOptionPane.showMessageDialog(null, "Producto eliminado");
                     limpiarCajas();
@@ -518,85 +507,90 @@ public class panelCompras extends javax.swing.JPanel {
 
         } catch (SQLException | NumberFormatException e) {
 
-            JOptionPane.showMessageDialog(null,"La conexión no se ha podido establecer con la base de datos");
+            JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void tbResgistrosComprasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbResgistrosComprasMouseClicked
-        
+
         int seleccion = tbResgistrosCompras.rowAtPoint(evt.getPoint());
-        txtClave.setText(String.valueOf(tbResgistrosCompras.getValueAt(seleccion,1)));
-        txtNombre.setText(String.valueOf(tbResgistrosCompras.getValueAt(seleccion,2)));
-        txtProveedor.setText(String.valueOf(tbResgistrosCompras.getValueAt(seleccion,3)));
-        txtCantidad.setText(String.valueOf(tbResgistrosCompras.getValueAt(seleccion,4)));
-        txtPrecioCompra.setText(String.valueOf(tbResgistrosCompras.getValueAt(seleccion,5)));
+        txtClave.setText(String.valueOf(tbResgistrosCompras.getValueAt(seleccion, 1)));
+        txtNombre.setText(String.valueOf(tbResgistrosCompras.getValueAt(seleccion, 2)));
+        txtProveedor.setText(String.valueOf(tbResgistrosCompras.getValueAt(seleccion, 3)));
+        txtCantidad.setText(String.valueOf(tbResgistrosCompras.getValueAt(seleccion, 4)));
+        txtPrecioCompra.setText(String.valueOf(tbResgistrosCompras.getValueAt(seleccion, 5)));
         txtPrecioVenta.setText(String.valueOf(tbResgistrosCompras.getValueAt(seleccion, 6)));
-        txtFecha.setText(String.valueOf(tbResgistrosCompras.getValueAt(seleccion,7)));
-        
-        
+        txtFecha.setText(String.valueOf(tbResgistrosCompras.getValueAt(seleccion, 7)));
+
+
     }//GEN-LAST:event_tbResgistrosComprasMouseClicked
 
-    
+
     private void txtFiltroNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroNombreKeyTyped
         agregarTabla();
     }//GEN-LAST:event_txtFiltroNombreKeyTyped
 
-    
+
     private void btnAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseEntered
-        btnAgregar.setBackground(new Color(36,47,65));
+        btnAgregar.setBackground(new Color(36, 47, 65));
     }//GEN-LAST:event_btnAgregarMouseEntered
 
     private void btnAgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseExited
-         btnAgregar.setBackground(new Color(97,212,195));
+        btnAgregar.setBackground(new Color(97, 212, 195));
     }//GEN-LAST:event_btnAgregarMouseExited
 
     private void btnBusquedaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBusquedaMouseEntered
-        btnBusqueda.setBackground(new Color(36,47,65));
+        btnBusqueda.setBackground(new Color(36, 47, 65));
     }//GEN-LAST:event_btnBusquedaMouseEntered
 
     private void btnBusquedaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBusquedaMouseExited
-        btnBusqueda.setBackground(new Color(97,212,195));
+        btnBusqueda.setBackground(new Color(97, 212, 195));
     }//GEN-LAST:event_btnBusquedaMouseExited
 
     private void btnActualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseEntered
-        btnActualizar.setBackground(new Color(36,47,65));
+        btnActualizar.setBackground(new Color(36, 47, 65));
     }//GEN-LAST:event_btnActualizarMouseEntered
 
     private void btnActualizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseExited
-        btnActualizar.setBackground(new Color(97,212,195));
+        btnActualizar.setBackground(new Color(97, 212, 195));
     }//GEN-LAST:event_btnActualizarMouseExited
 
     private void btnEliminarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseEntered
-        btnEliminar.setBackground(new Color(36,47,65));
+        btnEliminar.setBackground(new Color(36, 47, 65));
     }//GEN-LAST:event_btnEliminarMouseEntered
 
     private void btnEliminarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseExited
-        btnEliminar.setBackground(new Color(97,212,195));
+        btnEliminar.setBackground(new Color(97, 212, 195));
     }//GEN-LAST:event_btnEliminarMouseExited
 
     private void txtClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyTyped
-       char numero = evt.getKeyChar(); 
-       if(numero < '0' || numero > '9')evt.consume();
+        char numero = evt.getKeyChar();
+        if (numero < '0' || numero > '9') {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtClaveKeyTyped
 
     private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
         char numero = evt.getKeyChar();
-       if(numero < '0' || numero > '9')evt.consume();
+        if (numero < '0' || numero > '9') {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtCantidadKeyTyped
 
     private void txtPrecioCompraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioCompraKeyTyped
-       char numero = evt.getKeyChar(); 
-       if(numero < '0' || numero > '9')evt.consume();
+        char numero = evt.getKeyChar();
+        if (numero < '0' || numero > '9') {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtPrecioCompraKeyTyped
 
     private void txtPrecioVentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioVentaKeyTyped
-        char numero = evt.getKeyChar(); 
-       if(numero < '0' || numero > '9')evt.consume();
+        char numero = evt.getKeyChar();
+        if (numero < '0' || numero > '9') {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtPrecioVentaKeyTyped
-   
-    
-   
-    
+
     private void limpiarCajas() {
 
         txtCantidad.setText(null);
@@ -605,35 +599,35 @@ public class panelCompras extends javax.swing.JPanel {
         txtPrecioCompra.setText(null);
         txtProveedor.setText(null);
         txtPrecioVenta.setText(null);
-        
+
     }
 
-    private void calendario(){
-        
+    private void calendario() {
+
         Calendar calendario = new GregorianCalendar();
         String dia = Integer.toString(calendario.get(Calendar.DATE));
         String mes = Integer.toString(1);
         String annio = Integer.toString(calendario.get(Calendar.YEAR));
-        txtFecha.setText(annio+"-"+ mes +"-"+dia);
-        
+        txtFecha.setText(annio + "-" + mes + "-" + dia);
+
     }
-    
-    private void agregarTabla(){
-    
+
+    private void agregarTabla() {
+
         conexion = new conexion();
         Connection co = conexion.getConnection();
-   
+
         String sql = "SELECT * FROM compras";
         Statement st;
-        
-        DefaultTableModel modelo = new DefaultTableModel(){
+
+        DefaultTableModel modelo = new DefaultTableModel() {
 
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 8; 
+                return column == 8;
             }
         };
-        
+
         modelo.addColumn("ID");
         modelo.addColumn("codigo");
         modelo.addColumn("nombre");
@@ -642,51 +636,56 @@ public class panelCompras extends javax.swing.JPanel {
         modelo.addColumn("precioCompra");
         modelo.addColumn("precioVenta");
         modelo.addColumn("fecha");
-        
+
         tbResgistrosCompras.setModel(modelo);
-        
-        
-        
-      
+
         //Agregar filtro
-        txtFiltroNombre.addKeyListener(new KeyAdapter(){
-        
+        txtFiltroNombre.addKeyListener(new KeyAdapter() {
+
             @Override
-            public void keyReleased(KeyEvent ke){
-                
-                int filtro=0;
-                
-                if(cbSeleccionarBusqueda.getSelectedIndex()>0){
-                    
-                    switch(cbSeleccionarBusqueda.getSelectedIndex()){
-                        case 1: filtro = 0; break;
-                        case 2: filtro = 1; break;
-                        case 3: filtro = 2; break;
-                        case 4: filtro = 3; break;
-                        case 5: filtro = 7; break;
-                        default: filtro =1;
+            public void keyReleased(KeyEvent ke) {
+
+                int filtro = 0;
+
+                if (cbSeleccionarBusqueda.getSelectedIndex() > 0) {
+
+                    switch (cbSeleccionarBusqueda.getSelectedIndex()) {
+                        case 1:
+                            filtro = 0;
+                            break;
+                        case 2:
+                            filtro = 1;
+                            break;
+                        case 3:
+                            filtro = 2;
+                            break;
+                        case 4:
+                            filtro = 3;
+                            break;
+                        case 5:
+                            filtro = 7;
+                            break;
+                        default:
+                            filtro = 1;
                     }
-                
-                trs.setRowFilter(RowFilter.regexFilter("(?i)"+txtFiltroNombre.getText(), filtro));
+
+                    trs.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltroNombre.getText(), filtro));
                 }
             }
         });
-        
-        
-            
+
         trs = new TableRowSorter(modelo);
         tbResgistrosCompras.setRowSorter(trs);
         /////////
-     
-        
+
         String[] dato = new String[8];
-        
+
         try {
             st = co.createStatement();
             ResultSet result = st.executeQuery(sql);
-            
-            while(result.next()){
-                
+
+            while (result.next()) {
+
                 dato[0] = result.getString(1);
                 dato[1] = result.getString(2);
                 dato[2] = result.getString(3);
@@ -696,18 +695,83 @@ public class panelCompras extends javax.swing.JPanel {
                 dato[6] = result.getString(7);
                 dato[7] = result.getString(8);
                 modelo.addRow(dato);
-             }
-            
+            }
+
         } catch (SQLException ex) {
             System.out.println(ex);
         }
-        
-        
+
     }
-    
-     
-    
-    
+
+    public void VerificarSiExisteElProducto(int identificadot, String nombre, String proveedor, int canidad, int precioCompra, int precioVenta) {
+        conexion = new conexion();
+        try (Connection reg = conexion.getConnection()) {
+            ps = reg.prepareStatement("Select * from inventario where codigo = ?");
+            ps.setInt(1, identificadot);
+            boolean res = ps.execute();
+            if (res) {
+                insertarInventario(identificadot, nombre, proveedor, canidad, precioCompra, precioVenta);
+            }
+
+        } catch (SQLException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, identificadot);
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    public void insertarInventario(int identificadot, String nombre, String proveedor, int canidad, int precioCompra, int precioVenta) {
+        conexion = new conexion();
+        try (Connection reg = conexion.getConnection()) {
+
+            ps = reg.prepareStatement("INSERT INTO inventario (codigo,nombre,proveedor,cantidad,precioCompra,precioVenta,fecha) VALUES(?,?,?,?,?,?,now())");
+            int i = 1;
+            ps.setInt(i++, identificadot);
+            ps.setString(i++, nombre);
+            ps.setString(i++, proveedor);
+            ps.setInt(i++, canidad);
+            ps.setInt(i++, precioCompra);
+            ps.setInt(i++, precioVenta);
+
+            int res = ps.executeUpdate();
+            if (res > 0) {
+                JOptionPane.showMessageDialog(null, "Producto guardado");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error: El producto no ha podido ser guardado");
+                limpiarCajas();
+            }
+        } catch (SQLException | NumberFormatException e) {
+            ActualizarTablaInventarioSiExiste(identificadot, nombre, proveedor, canidad, precioCompra, precioVenta);
+        }
+    }
+
+    public void ActualizarTablaInventarioSiExiste(int identificadot, String nombre, String proveedor, int canidad, int precioCompra, int precioVenta) {
+        conexion = new conexion();
+        try (Connection reg = conexion.getConnection()) {
+            ps = reg.prepareStatement("UPDATE inventario SET nombre=?,proveedor=?,cantidad=?+cantidad,precioCompra=?,precioVenta=? WHERE codigo=?");
+
+            ps.setString(1, nombre);
+            ps.setString(2, proveedor);
+            ps.setInt(3, canidad);
+            ps.setInt(4, precioCompra);
+            ps.setInt(5, precioVenta);
+            ps.setInt(6, identificadot);
+
+            int res = ps.executeUpdate();
+            if (res > 0) {
+                agregarTabla();
+                JOptionPane.showMessageDialog(null, "Inventario modificado");
+                limpiarCajas();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error: El Inventario no ha podido ser modificado");
+                limpiarCajas();
+            }
+        } catch (SQLException | NumberFormatException e) {
+
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregar;
