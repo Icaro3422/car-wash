@@ -534,6 +534,7 @@ public class panelInventario extends javax.swing.JPanel {
         txtNombre.setText(null);
         txtPrecioCompra.setText(null);
         txtProveedor.setText(null);
+        txtPrecioVenta.setText(null);
         
     }
     

@@ -61,11 +61,14 @@ public class panelCompras extends javax.swing.JPanel {
         cbSeleccionarBusqueda = new javax.swing.JComboBox();
 
         setBackground(new java.awt.Color(97, 212, 195));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/carro-de-la-compra.png"))); // NOI18N
         jLabel1.setText("Compras");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 48, 653, -1));
 
         btnAgregar.setBackground(new java.awt.Color(97, 212, 195));
         btnAgregar.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
@@ -94,6 +97,7 @@ public class panelCompras extends javax.swing.JPanel {
                 btnAgregarActionPerformed(evt);
             }
         });
+        add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(754, 144, 49, -1));
 
         btnActualizar.setBackground(new java.awt.Color(97, 212, 195));
         btnActualizar.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
@@ -121,22 +125,28 @@ public class panelCompras extends javax.swing.JPanel {
                 btnActualizarActionPerformed(evt);
             }
         });
+        add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(865, 144, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Código");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 79, 120, -1));
 
         txtNombre.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 108, 100, 30));
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Nombre");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 79, 80, -1));
 
         txtProveedor.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        add(txtProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 108, 100, 30));
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Proveedor");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 79, 100, -1));
 
         txtCantidad.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -144,10 +154,12 @@ public class panelCompras extends javax.swing.JPanel {
                 txtCantidadKeyTyped(evt);
             }
         });
+        add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(392, 108, 100, 30));
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Cantidad");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(392, 79, -1, -1));
 
         txtPrecioCompra.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtPrecioCompra.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -155,17 +167,21 @@ public class panelCompras extends javax.swing.JPanel {
                 txtPrecioCompraKeyTyped(evt);
             }
         });
+        add(txtPrecioCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(519, 108, 160, 30));
 
         jLabel6.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Precio de compra");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(519, 79, 160, -1));
 
         txtFecha.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtFecha.setEnabled(false);
+        add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 108, 100, 30));
 
         lblFecha.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         lblFecha.setForeground(new java.awt.Color(255, 255, 255));
         lblFecha.setText("Fecha");
+        add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 79, 101, -1));
 
         tbResgistrosCompras.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         tbResgistrosCompras.setModel(new javax.swing.table.DefaultTableModel(
@@ -200,6 +216,8 @@ public class panelCompras extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tbResgistrosCompras);
 
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 205, 969, 318));
+
         btnBusqueda.setBackground(new java.awt.Color(97, 212, 195));
         btnBusqueda.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         btnBusqueda.setForeground(new java.awt.Color(255, 255, 255));
@@ -226,6 +244,7 @@ public class panelCompras extends javax.swing.JPanel {
                 btnBusquedaActionPerformed(evt);
             }
         });
+        add(btnBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(809, 144, -1, -1));
 
         btnEliminar.setBackground(new java.awt.Color(97, 212, 195));
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
@@ -251,6 +270,7 @@ public class panelCompras extends javax.swing.JPanel {
                 btnEliminarActionPerformed(evt);
             }
         });
+        add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(921, 144, 59, -1));
 
         txtClave.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -258,10 +278,12 @@ public class panelCompras extends javax.swing.JPanel {
                 txtClaveKeyTyped(evt);
             }
         });
+        add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 108, 100, 30));
 
         jLabel7.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Filtrar por:");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 562, 120, -1));
 
         txtFiltroNombre.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtFiltroNombre.setForeground(new java.awt.Color(204, 204, 204));
@@ -270,10 +292,12 @@ public class panelCompras extends javax.swing.JPanel {
                 txtFiltroNombreKeyTyped(evt);
             }
         });
+        add(txtFiltroNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 594, 164, 32));
 
         jLabel8.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Precio de venta");
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 80, 149, -1));
 
         txtPrecioVenta.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtPrecioVenta.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -281,119 +305,11 @@ public class panelCompras extends javax.swing.JPanel {
                 txtPrecioVentaKeyTyped(evt);
             }
         });
+        add(txtPrecioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(709, 108, 139, 30));
 
         cbSeleccionarBusqueda.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cbSeleccionarBusqueda.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar", "ID", "Codigo", "Nombre", "Proveedor", "Fecha" }));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtFiltroNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                                    .addComponent(cbSeleccionarBusqueda, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(28, 28, 28)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(28, 28, 28)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5))
-                                .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtPrecioCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(10, 10, 10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addComponent(txtPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(1, 1, 1)))
-                        .addGap(36, 36, 36))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addGap(38, 38, 38))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jLabel1)
-                .addGap(6, 6, 6)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(lblFecha)
-                    .addComponent(jLabel8))
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbSeleccionarBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFiltroNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        add(cbSeleccionarBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 563, 164, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
