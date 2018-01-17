@@ -291,8 +291,8 @@ public class panelVentas extends javax.swing.JPanel {
         conexion = new conexion();
         Connection co = conexion.getConnection();
 
-        String sql = "SELECT codigo,nombre,proveedor,cantidad,precioVenta FROM inventario";
-        Statement st;
+        //String sql = "SELECT codigo,nombre,proveedor,cantidad,precioVenta FROM inventario WHERE codigo = ? and cantidad >= ?";
+        //Statement st;
 
         DefaultTableModel modelo = new DefaultTableModel() {
 
@@ -321,17 +321,19 @@ public class panelVentas extends javax.swing.JPanel {
         String[] dato = new String[6];
 
         try {
-            st = co.createStatement();
-            ResultSet result = st.executeQuery(sql);
-               
+            ps = co.prepareStatement("SELECT codigo,nombre,proveedor,cantidad,precioVenta FROM inventario WHERE codigo = ? and cantidad >= ?");
+            ps.setInt(1, codigo);
+            ps.setInt(2, cantidad);
+            //ResultSet result = st.executeQuery(sql);
+              rs = ps.executeQuery();
             
-            while (result.next()) {
+            while (rs.next()) {
 
-                dato[0] = result.getString(1);
-                dato[1] = result.getString(2);
-                dato[2] = result.getString(3);
+                dato[0] = rs.getString(1);
+                dato[1] = rs.getString(2);
+                dato[2] = rs.getString(3);
                 dato[3] = String.valueOf(cantidad);
-                dato[4] = result.getString(5);
+                dato[4] = rs.getString(5);
                 modelo.addRow(dato);
             }
 

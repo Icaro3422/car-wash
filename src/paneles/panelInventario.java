@@ -337,13 +337,11 @@ public class panelInventario extends javax.swing.JPanel {
         try {
             conexion = new conexion();
             try (Connection reg = conexion.getConnection()) {
-                ps = reg.prepareStatement("UPDATE inventario SET nombre=?,proveedor=?,cantidad=?,precioCompra=? WHERE codigo=?");
+                ps = reg.prepareStatement("UPDATE inventario SET nombre=?,proveedor=? WHERE codigo=?");
                 
                 ps.setString(1, txtNombre.getText());
                 ps.setString(2, txtProveedor.getText());
-                ps.setInt(3, Integer.parseInt(txtCantidad.getText()));
-                ps.setInt(4, Integer.parseInt(txtPrecioCompra.getText()));
-                ps.setInt(5, Integer.parseInt(txtCodigo.getText()));
+                ps.setInt(3, Integer.parseInt(txtCodigo.getText()));
 
                 int res = ps.executeUpdate();
                 if (res > 0) {
@@ -359,7 +357,7 @@ public class panelInventario extends javax.swing.JPanel {
 
         } catch (SQLException | NumberFormatException e) {
 
-            JOptionPane.showMessageDialog(null,"La conexión no se ha podido establecer con la base de datos");
+            JOptionPane.showMessageDialog(null,"Debe selesccionar un producto para ser actualizado");
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
@@ -408,6 +406,7 @@ public class panelInventario extends javax.swing.JPanel {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         try {
+            //confirmacion();
             conexion = new conexion();
             try (Connection reg = conexion.getConnection()) {
                 ps = reg.prepareStatement("DELETE FROM inventario WHERE codigo=?");
@@ -426,7 +425,7 @@ public class panelInventario extends javax.swing.JPanel {
 
         } catch (SQLException | NumberFormatException e) {
 
-            JOptionPane.showMessageDialog(null,"La conexión no se ha podido establecer con la base de datos");
+            JOptionPane.showMessageDialog(null,"Debe selesccionar un producto para ser eliminado");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -548,6 +547,19 @@ public class panelInventario extends javax.swing.JPanel {
         
     }
    
+     private void confirmacion(){
+         
+         int confirmado = JOptionPane.showConfirmDialog(null,"¿Desea confirmar los cambios?");
+         
+         if (JOptionPane.OK_OPTION == confirmado) {
+            System.out.println("confirmado");
+        } else {
+            
+            
+        }
+         
+         
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
