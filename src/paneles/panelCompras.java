@@ -318,7 +318,7 @@ public class panelCompras extends javax.swing.JPanel {
         conexion = new conexion();
         try (Connection reg = conexion.getConnection()) {
             if (txtClave.getText() != null) {
-                ps = reg.prepareStatement("INSERT INTO compras (codigo,nombre,proveedor,cantidad,precioCompra,precioVenta,fecha) VALUES(?,?,?,?,?,?,?)");
+                ps = reg.prepareStatement("INSERT INTO compras (codigo,nombre,proveedor,cantidad,precioCompra,precioVenta,fecha) VALUES(?,?,?,?,?,?,now())");
                 int i = 1;
                 ps.setInt(i++, Integer.parseInt(txtClave.getText()));
                 ps.setString(i++, txtNombre.getText());
@@ -326,11 +326,10 @@ public class panelCompras extends javax.swing.JPanel {
                 ps.setInt(i++, Integer.parseInt(txtCantidad.getText()));
                 ps.setInt(i++, Integer.parseInt(txtPrecioCompra.getText()));
                 ps.setInt(i++, Integer.parseInt(txtPrecioVenta.getText()));
-                ps.setDate(i++, Date.valueOf(txtFecha.getText()));
 
                 int res = ps.executeUpdate();
                 if (res > 0) {
-                    VerificarSiExisteElProducto(Integer.parseInt(txtClave.getText()), txtNombre.getText(), txtProveedor.getText(), Integer.parseInt(txtCantidad.getText()), Integer.parseInt(txtPrecioCompra.getText()), Integer.parseInt(txtPrecioVenta.getText()));
+                    VerificarSiExisteElProducto(Integer.parseInt(txtClave.getText()), txtNombre.getText(), txtProveedor.getText(), Integer.parseInt(txtCantidad.getText()), Integer.parseInt(txtPrecioVenta.getText()));
                     agregarTabla();
                     limpiarCajas();
 
@@ -353,7 +352,8 @@ public class panelCompras extends javax.swing.JPanel {
             conexion = new conexion();
             Connection co = conexion.getConnection();
             ps = co.prepareStatement("SELECT * FROM compras WHERE codigo=?");
-            ps.setInt(1, Integer.parseInt(txtClave.getText()));
+            int i = 1;
+            ps.setInt(i++, Integer.parseInt(txtClave.getText()));
             rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -379,13 +379,13 @@ public class panelCompras extends javax.swing.JPanel {
         conexion = new conexion();
         try (Connection reg = conexion.getConnection()) {
             ps = reg.prepareStatement("UPDATE compras SET nombre=?,proveedor=?,cantidad=?,precioCompra=?,precioVenta=? WHERE codigo=?");
-
-            ps.setString(1, txtNombre.getText());
-            ps.setString(2, txtProveedor.getText());
-            ps.setInt(3, Integer.parseInt(txtCantidad.getText()));
-            ps.setInt(4, Integer.parseInt(txtPrecioCompra.getText()));
-            ps.setInt(5, Integer.parseInt(txtPrecioVenta.getText()));
-            ps.setInt(6, Integer.parseInt(txtClave.getText()));
+            int i = 1;
+            ps.setString(i++, txtNombre.getText());
+            ps.setString(i++, txtProveedor.getText());
+            ps.setInt(i++, Integer.parseInt(txtCantidad.getText()));
+            ps.setInt(i++, Integer.parseInt(txtPrecioCompra.getText()));
+            ps.setInt(i++, Integer.parseInt(txtPrecioVenta.getText()));
+            ps.setInt(i++, Integer.parseInt(txtClave.getText()));
 
             int res = ps.executeUpdate();
             if (res > 0) {
@@ -407,7 +407,8 @@ public class panelCompras extends javax.swing.JPanel {
             conexion = new conexion();
             try (Connection reg = conexion.getConnection()) {
                 ps = reg.prepareStatement("DELETE FROM compras WHERE codigo=?");
-                ps.setInt(1, Integer.parseInt(txtClave.getText()));
+                int i = 1;
+                ps.setInt(i++, Integer.parseInt(txtClave.getText()));
 
                 int res = ps.executeUpdate();
                 if (res > 0) {
@@ -508,7 +509,6 @@ public class panelCompras extends javax.swing.JPanel {
     }//GEN-LAST:event_txtPrecioVentaKeyTyped
 
     private void limpiarCajas() {
-
         txtCantidad.setText(null);
         txtClave.setText(null);
         txtNombre.setText(null);
@@ -519,31 +519,25 @@ public class panelCompras extends javax.swing.JPanel {
     }
 
     private void calendario() {
-
         Calendar calendario = new GregorianCalendar();
         String dia = Integer.toString(calendario.get(Calendar.DATE));
         String mes = Integer.toString(1);
         String annio = Integer.toString(calendario.get(Calendar.YEAR));
         txtFecha.setText(annio + "-" + mes + "-" + dia);
-
     }
 
     private void agregarTabla() {
-
         conexion = new conexion();
         Connection co = conexion.getConnection();
 
         String sql = "SELECT * FROM compras";
         Statement st;
-
         DefaultTableModel modelo = new DefaultTableModel() {
-
             @Override
             public boolean isCellEditable(int row, int column) {
                 return column == 8;
             }
         };
-
         modelo.addColumn("ID");
         modelo.addColumn("codigo");
         modelo.addColumn("nombre");
@@ -560,11 +554,8 @@ public class panelCompras extends javax.swing.JPanel {
 
             @Override
             public void keyReleased(KeyEvent ke) {
-
                 int filtro = 0;
-
                 if (cbSeleccionarBusqueda.getSelectedIndex() > 0) {
-
                     switch (cbSeleccionarBusqueda.getSelectedIndex()) {
                         case 1:
                             filtro = 0;
@@ -584,7 +575,6 @@ public class panelCompras extends javax.swing.JPanel {
                         default:
                             filtro = 1;
                     }
-
                     trs.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltroNombre.getText(), filtro));
                 }
             }
@@ -599,7 +589,6 @@ public class panelCompras extends javax.swing.JPanel {
         try {
             st = co.createStatement();
             ResultSet result = st.executeQuery(sql);
-
             while (result.next()) {
 
                 dato[0] = result.getString(1);
@@ -619,14 +608,15 @@ public class panelCompras extends javax.swing.JPanel {
 
     }
 
-    public void VerificarSiExisteElProducto(int identificadot, String nombre, String proveedor, int canidad, int precioCompra, int precioVenta) {
+    public void VerificarSiExisteElProducto(int identificadot, String nombre, String proveedor, int canidad, int precioVenta) {
         conexion = new conexion();
         try (Connection reg = conexion.getConnection()) {
             ps = reg.prepareStatement("Select * from inventario where codigo = ?");
-            ps.setInt(1, identificadot);
+            int i = 1;
+            ps.setInt(i ++, identificadot);
             boolean res = ps.execute();
             if (res) {
-                insertarInventario(identificadot, nombre, proveedor, canidad, precioCompra, precioVenta);
+                insertarInventario(identificadot, nombre, proveedor, canidad, precioVenta);
             }
 
         } catch (SQLException | NumberFormatException e) {
@@ -635,17 +625,16 @@ public class panelCompras extends javax.swing.JPanel {
         }
     }
 
-    public void insertarInventario(int identificadot, String nombre, String proveedor, int canidad, int precioCompra, int precioVenta) {
+    public void insertarInventario(int identificadot, String nombre, String proveedor, int canidad,int precioVenta) {
         conexion = new conexion();
         try (Connection reg = conexion.getConnection()) {
 
-            ps = reg.prepareStatement("INSERT INTO inventario (codigo,nombre,proveedor,cantidad,precioCompra,precioVenta,fecha) VALUES(?,?,?,?,?,?,now())");
+            ps = reg.prepareStatement("INSERT INTO inventario (codigo,nombre,proveedor,cantidad,precioVenta,fecha) VALUES(?,?,?,?,?,now())");
             int i = 1;
             ps.setInt(i++, identificadot);
             ps.setString(i++, nombre);
             ps.setString(i++, proveedor);
             ps.setInt(i++, canidad);
-            ps.setInt(i++, precioCompra);
             ps.setInt(i++, precioVenta);
 
             int res = ps.executeUpdate();
@@ -656,21 +645,20 @@ public class panelCompras extends javax.swing.JPanel {
                 limpiarCajas();
             }
         } catch (SQLException | NumberFormatException e) {
-            ActualizarTablaInventarioSiExiste(identificadot, nombre, proveedor, canidad, precioCompra, precioVenta);
+            ActualizarTablaInventarioSiExiste(identificadot, nombre, proveedor, canidad, precioVenta);
         }
     }
 
-    public void ActualizarTablaInventarioSiExiste(int identificadot, String nombre, String proveedor, int canidad, int precioCompra, int precioVenta) {
+    public void ActualizarTablaInventarioSiExiste(int identificadot, String nombre, String proveedor, int canidad, int precioVenta) {
         conexion = new conexion();
         try (Connection reg = conexion.getConnection()) {
-            ps = reg.prepareStatement("UPDATE inventario SET nombre=?,proveedor=?,cantidad=?+cantidad,precioCompra=?,precioVenta=? WHERE codigo=?");
-
-            ps.setString(1, nombre);
-            ps.setString(2, proveedor);
-            ps.setInt(3, canidad);
-            ps.setInt(4, precioCompra);
-            ps.setInt(5, precioVenta);
-            ps.setInt(6, identificadot);
+            ps = reg.prepareStatement("UPDATE inventario SET nombre=?,proveedor=?,cantidad=?+cantidad,precioVenta=? WHERE codigo=?");
+            int i = 1;
+            ps.setString(i++, nombre);
+            ps.setString(i++, proveedor);
+            ps.setInt(i++, canidad);
+            ps.setInt(i++, precioVenta);
+            ps.setInt(i++, identificadot);
 
             int res = ps.executeUpdate();
             if (res > 0) {

@@ -34,11 +34,7 @@ public class panelVentas extends javax.swing.JPanel {
      * Creates new form panelVentas
      */
     public panelVentas() {
-        initComponents();
-        
-        
-        
-        
+        initComponents();       
     }
     
     
@@ -212,9 +208,7 @@ public class panelVentas extends javax.swing.JPanel {
         
         int codigo = Integer.parseInt(txtClave.getText());
         int cantidad = Integer.parseInt(txtCantidad.getText());
-        BuscarPorCodigo(codigo, cantidad);
-        
-       
+        BuscarPorCodigo(codigo, cantidad);       
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
@@ -234,8 +228,6 @@ public class panelVentas extends javax.swing.JPanel {
     public void BuscarPorCodigo (int codigo, int cantidadPedido){
        String nombre = "";
        int precioVenta = 0;
-       
-       
         try {
             conexion = new conexion();
             Connection co = conexion.getConnection();
@@ -247,12 +239,8 @@ public class panelVentas extends javax.swing.JPanel {
                 
                 nombre  = (rs.getString("nombre"));
                 precioVenta = (rs.getInt("precioVenta"));
-                actualizarInventario(codigo, cantidadPedido);
-                
-                
-                
+                actualizarInventario(codigo, cantidadPedido);   
             } else {
-               
                 JOptionPane.showMessageDialog(null, "La cantidad solicitada del producto no está disponible");
             }
 
@@ -273,27 +261,22 @@ public class panelVentas extends javax.swing.JPanel {
             ps.setInt(2, codigo);
             
             int res = ps.executeUpdate();
-            if (res > 0) {
-                
+            if (res > 0) {   
                 JOptionPane.showMessageDialog(null, "Venta Realizada");
                 agregarTabla(codigo,cantidad);
             } else {
                 JOptionPane.showMessageDialog(null, "Error: El Inventario no ha podido ser modificado");
             }
         } catch (SQLException | NumberFormatException e) {
-
             JOptionPane.showMessageDialog(null, e);
         }
     }
     
     private void agregarTabla(int codigo,int cantidad) {
-
         conexion = new conexion();
         Connection co = conexion.getConnection();
-
         //String sql = "SELECT codigo,nombre,proveedor,cantidad,precioVenta FROM inventario WHERE codigo = ? and cantidad >= ?";
         //Statement st;
-
         DefaultTableModel modelo = new DefaultTableModel() {
 
             @Override
@@ -301,23 +284,14 @@ public class panelVentas extends javax.swing.JPanel {
                 return column == 5;
             }
         };
-
         modelo.addColumn("codigo");
         modelo.addColumn("nombre");
         modelo.addColumn("proveedor");
         modelo.addColumn("cantidad");
         modelo.addColumn("precioVenta");
-        
-
         tbResgistrosVentas.setModel(modelo);
-
-        /////
-       
-
-        //////
         trs = new TableRowSorter(modelo);
         tbResgistrosVentas.setRowSorter(trs);
-
         String[] dato = new String[6];
 
         try {
@@ -336,14 +310,14 @@ public class panelVentas extends javax.swing.JPanel {
                 dato[4] = rs.getString(5);
                 modelo.addRow(dato);
             }
-
         } catch (SQLException ex) {
            System.out.println(ex);
         }
-
     }
-
-
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JLabel jLabel1;
