@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package paneles;
 
 import conexion.conexion;
@@ -30,38 +25,9 @@ public class panelVentas extends javax.swing.JPanel {
     ResultSet rs;
     TableRowSorter trs;
 
-    /**
-     * Creates new form panelVentas
-     */
     public panelVentas() {
         initComponents();       
     }
-    
-    
-
-    /*public void VerificarCantidadExistente(int codigo, int cantidad) {
-        String nombre = "";
-        String proveedor = "";
-        int cantidadExistente = 0;
-        int precioVenta = 0;
-        try {
-            conexion = new conexion();
-            Connection co = conexion.getConnection();
-            ps = co.prepareStatement("SELECT codigo,nombre,cantidad,precioVenta FROM inventario WHERE codigo=?");
-            ps.setInt(1, codigo);
-            rs = ps.executeQuery();
-
-            if (rs.next()) {
-                
-            } else {
-                JOptionPane.showMessageDialog(null, "No hay existencia del producto");
-            }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-        }
-
-    }*/
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -206,7 +172,7 @@ public class panelVentas extends javax.swing.JPanel {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         
-        int codigo = Integer.parseInt(txtClave.getText());
+        String codigo = txtClave.getText();
         int cantidad = Integer.parseInt(txtCantidad.getText());
         BuscarPorCodigo(codigo, cantidad);       
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -225,25 +191,23 @@ public class panelVentas extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtClaveKeyTyped
     
-    public void BuscarPorCodigo (int codigo, int cantidadPedido){
+    public void BuscarPorCodigo (String codigo, int cantidadPedido){
        String nombre = "";
        int precioVenta = 0;
         try {
             conexion = new conexion();
             Connection co = conexion.getConnection();
             ps = co.prepareStatement("SELECT codigo,nombre,proveedor,cantidad,precioVenta FROM inventario WHERE codigo=? and cantidad >= ?");
-            ps.setInt(1, codigo);
+            ps.setString(1, codigo);
             ps.setInt(2, cantidadPedido);
             rs = ps.executeQuery();
             if (rs.next()) {
-                
                 nombre  = (rs.getString("nombre"));
                 precioVenta = (rs.getInt("precioVenta"));
                 actualizarInventario(codigo, cantidadPedido);   
             } else {
                 JOptionPane.showMessageDialog(null, "La cantidad solicitada del producto no está disponible");
             }
-
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
@@ -252,13 +216,13 @@ public class panelVentas extends javax.swing.JPanel {
     
     //public void insertFacturacion (int codigo, int cantidad, int precioVentaUnit, int precioTotal){}
     
-    public void actualizarInventario (int codigo,int cantidad){
+    public void actualizarInventario (String codigo,int cantidad){
         conexion = new conexion();
         try (Connection reg = conexion.getConnection()) {
             ps = reg.prepareStatement("UPDATE inventario SET cantidad=cantidad-? WHERE codigo=?");
 
             ps.setInt(1, cantidad);
-            ps.setInt(2, codigo);
+            ps.setString(2, codigo);
             
             int res = ps.executeUpdate();
             if (res > 0) {   
@@ -272,7 +236,7 @@ public class panelVentas extends javax.swing.JPanel {
         }
     }
     
-    private void agregarTabla(int codigo,int cantidad) {
+    private void agregarTabla(String codigo,int cantidad) {
         conexion = new conexion();
         Connection co = conexion.getConnection();
         //String sql = "SELECT codigo,nombre,proveedor,cantidad,precioVenta FROM inventario WHERE codigo = ? and cantidad >= ?";
@@ -296,7 +260,7 @@ public class panelVentas extends javax.swing.JPanel {
 
         try {
             ps = co.prepareStatement("SELECT codigo,nombre,proveedor,cantidad,precioVenta FROM inventario WHERE codigo = ? and cantidad >= ?");
-            ps.setInt(1, codigo);
+            ps.setString(1, codigo);
             ps.setInt(2, cantidad);
             //ResultSet result = st.executeQuery(sql);
               rs = ps.executeQuery();
@@ -314,9 +278,6 @@ public class panelVentas extends javax.swing.JPanel {
            System.out.println(ex);
         }
     }
-    
-    
-    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;

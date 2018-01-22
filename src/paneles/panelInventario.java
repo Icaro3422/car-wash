@@ -1,4 +1,3 @@
-
 package paneles;
 
 import conexion.conexion;
@@ -23,7 +22,6 @@ public class panelInventario extends javax.swing.JPanel {
      PreparedStatement ps;
      ResultSet rs;
      TableRowSorter trs;
-     
     
     public panelInventario() {
         initComponents();
@@ -31,7 +29,6 @@ public class panelInventario extends javax.swing.JPanel {
         agregarTabla(); 
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -332,7 +329,7 @@ public class panelInventario extends javax.swing.JPanel {
                 
                 ps.setString(1, txtNombre.getText());
                 ps.setString(2, txtProveedor.getText());
-                ps.setInt(3, Integer.parseInt(txtCodigo.getText()));
+                ps.setString(3, txtCodigo.getText());
 
                 int res = ps.executeUpdate();
                 if (res > 0) {
@@ -345,9 +342,7 @@ public class panelInventario extends javax.swing.JPanel {
                     limpiarCajas();
                 }
             }
-
         } catch (SQLException | NumberFormatException e) {
-
             JOptionPane.showMessageDialog(null,"Debe selesccionar un producto para ser actualizado");
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
@@ -362,7 +357,6 @@ public class panelInventario extends javax.swing.JPanel {
 
     private void btnBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaActionPerformed
         try {
-           
             conexion = new conexion();
             Connection co = conexion.getConnection();
             ps = co.prepareStatement("SELECT * FROM inventario WHERE codigo=?");
@@ -380,7 +374,6 @@ public class panelInventario extends javax.swing.JPanel {
             else{
                 JOptionPane.showMessageDialog(null, "No existe un registro con dicha clave");
             }
-            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"La conexión no se ha podido establecer con la base de datos");
         }
@@ -412,9 +405,7 @@ public class panelInventario extends javax.swing.JPanel {
                     limpiarCajas();
                 }
             }
-
         } catch (SQLException | NumberFormatException e) {
-
             JOptionPane.showMessageDialog(null,"Debe selesccionar un producto para ser eliminado");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -433,8 +424,6 @@ public class panelInventario extends javax.swing.JPanel {
         agregarTabla();  
     }//GEN-LAST:event_txtFiltroNombreKeyTyped
 
-    
-    
    private void agregarTabla(){
     
         conexion = new conexion();
@@ -451,8 +440,6 @@ public class panelInventario extends javax.swing.JPanel {
             }
         };
         
-        
-        
         modelo.addColumn("codigo");
         modelo.addColumn("nombre");
         modelo.addColumn("proveedor");
@@ -467,8 +454,7 @@ public class panelInventario extends javax.swing.JPanel {
             public void keyReleased(KeyEvent ke){
                 int filtro=0;
                 
-                if(cbSeleccionarBusqueda.getSelectedIndex()>0){
-                    
+                if(cbSeleccionarBusqueda.getSelectedIndex()>0){                    
                     switch(cbSeleccionarBusqueda.getSelectedIndex()){
                         case 1: filtro = 0; break;
                         case 2: filtro = 1; break;
@@ -478,18 +464,13 @@ public class panelInventario extends javax.swing.JPanel {
                     }
                     trs.setRowFilter(RowFilter.regexFilter("(?i)"+txtFiltroNombre.getText(), filtro));
                 }
-                
-                
             }
         });
         
-        
-            
         trs = new TableRowSorter(modelo);
         tbRegistros.setRowSorter(trs);
   
         String[] dato = new String[7];
-        
         try {
             st = co.createStatement();
             ResultSet result = st.executeQuery(sql);
@@ -504,12 +485,9 @@ public class panelInventario extends javax.swing.JPanel {
                 dato[5] = result.getString(6);
                 modelo.addRow(dato);
              }
-            
         } catch (SQLException ex) {
             System.out.println(ex);    
-        }
-        
-        
+        }  
     }
     
     private void limpiarCajas() {
@@ -519,7 +497,6 @@ public class panelInventario extends javax.swing.JPanel {
         txtNombre.setText(null);
         txtProveedor.setText(null);
         txtPrecioVenta.setText(null);
-        
     }
     
       private void calendario(){
