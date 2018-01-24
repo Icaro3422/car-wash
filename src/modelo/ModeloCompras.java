@@ -20,6 +20,7 @@ public class ModeloCompras {
     private int precioCompra;
     private int precioVenta;
     private Date fecha;
+    private String fechaString;
 
     public String getCodigo() {
         return codigo;
@@ -75,5 +76,13 @@ public class ModeloCompras {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public String getFechaString() {
+        return fechaString;
+    }
+
+    public void setFechaString(String fechaString) {
+        this.fechaString = fechaString;
     }
 }

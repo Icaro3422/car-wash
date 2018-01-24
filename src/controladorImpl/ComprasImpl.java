@@ -28,4 +28,14 @@ public class ComprasImpl implements ComprasControladorInterf {
             JOptionPane.showMessageDialog(null, "Error: El producto no ha podido ser guardado");
         }
     }
+    
+    @Override 
+    public ModeloCompras ConsultarCompra (ModeloCompras compras){
+        if(compras.getCodigo() != null){
+            comprasPersistenciaImpl.ConsultarCompra(compras);
+        }else{
+            JOptionPane.showMessageDialog(null, "Error: Debe escoger un producto");
+        }
+        return compras;
+    }
 }

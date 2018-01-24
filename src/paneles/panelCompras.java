@@ -337,27 +337,18 @@ public class panelCompras extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaActionPerformed
-        try {
-            conexion = new conexion();
-            Connection co = conexion.getConnection();
-            ps = co.prepareStatement("SELECT * FROM compras WHERE codigo=?");
-            int i = 1;
-            ps.setInt(i++, Integer.parseInt(txtClave.getText()));
-            rs = ps.executeQuery();
-
-            if (rs.next()) {
-                txtClave.setText(rs.getString("codigo"));
-                txtNombre.setText(rs.getString("nombre"));
-                txtProveedor.setText(rs.getString("proveedor"));
-                txtCantidad.setText(rs.getString("cantidad"));
-                txtPrecioCompra.setText(rs.getString("precioCompra"));
-                txtPrecioVenta.setText(rs.getString("precioVenta"));
-                txtFecha.setText(rs.getString("fecha"));
-            } else {
-                JOptionPane.showMessageDialog(null, "No existe un registro con dicha clave");
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
+        comprasImpl = new ComprasImpl();
+        compras = new ModeloCompras();
+        
+        if(txtClave.getText() != null){
+            comprasImpl.ConsultarCompra(compras);
+            txtClave.setText(compras.getCodigo());
+                txtNombre.setText(compras.getNombre());
+                txtProveedor.setText(compras.getProveedor());
+                txtCantidad.setText(Integer.toString(compras.getCantidad()));
+                txtPrecioCompra.setText(Integer.toString(compras.getPrecioCompra()));
+                txtPrecioVenta.setText(Integer.toString(compras.getPrecioVenta()));
+                txtFecha.setText(compras.getFechaString());
         }
     }//GEN-LAST:event_btnBusquedaActionPerformed
 

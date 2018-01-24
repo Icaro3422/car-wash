@@ -20,4 +20,6 @@ public interface ComprasPersistenciaInterf {
     void insertarInventario (ModeloCompras compras);
     
     void ActualizarTablaInventarioSiExiste (ModeloCompras compras);
+    
+    ModeloCompras ConsultarCompra (ModeloCompras compras);
 }

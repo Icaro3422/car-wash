@@ -204,8 +204,8 @@ public class panelVentas extends javax.swing.JPanel {
             if (rs.next()) {
                 nombre  = (rs.getString("nombre"));
                 precioVenta = (rs.getInt("precioVenta"));
-                actualizarInventario(codigo, cantidadPedido);   
-            } else {
+                actualizarInventario(codigo, cantidadPedido);
+            } else {  
                 JOptionPane.showMessageDialog(null, "La cantidad solicitada del producto no está disponible");
             }
         } catch (SQLException ex) {
@@ -220,12 +220,10 @@ public class panelVentas extends javax.swing.JPanel {
         conexion = new conexion();
         try (Connection reg = conexion.getConnection()) {
             ps = reg.prepareStatement("UPDATE inventario SET cantidad=cantidad-? WHERE codigo=?");
-
             ps.setInt(1, cantidad);
             ps.setString(2, codigo);
-            
             int res = ps.executeUpdate();
-            if (res > 0) {   
+            if (res > 0) {
                 JOptionPane.showMessageDialog(null, "Venta Realizada");
                 agregarTabla(codigo,cantidad);
             } else {
@@ -248,14 +246,18 @@ public class panelVentas extends javax.swing.JPanel {
                 return column == 5;
             }
         };
+
         modelo.addColumn("codigo");
         modelo.addColumn("nombre");
         modelo.addColumn("proveedor");
         modelo.addColumn("cantidad");
         modelo.addColumn("precioVenta");
+        
         tbResgistrosVentas.setModel(modelo);
+        //////
         trs = new TableRowSorter(modelo);
         tbResgistrosVentas.setRowSorter(trs);
+
         String[] dato = new String[6];
 
         try {

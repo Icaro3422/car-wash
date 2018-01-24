@@ -46,6 +46,33 @@ public class ComprasPersistenciaImpl implements ComprasPersistenciaInterf {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+    
+    @Override
+    public ModeloCompras ConsultarCompra (ModeloCompras compras){
+        try {
+            conexion = new conexion();
+            Connection co = conexion.getConnection();
+            ps = co.prepareStatement("SELECT * FROM compras WHERE codigo=?");
+            int i = 1;
+            ps.setString(i++, compras.getCodigo());
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                compras.setCodigo(rs.getString("codigo"));
+                compras.setNombre(rs.getString("nombre"));
+                compras.setProveedor(rs.getString("proveedor"));
+                compras.setCantidad(rs.getInt("cantidad"));
+                compras.setPrecioCompra(rs.getInt("precioCompra"));
+                compras.setPrecioVenta(rs.getInt("precioVenta"));
+                compras.setFechaString(rs.getString("fecha"));
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe un registro con dicha clave");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return compras;
+    }
 
     @Override
     public void VerificarSiExisteElProducto(ModeloCompras compras) {

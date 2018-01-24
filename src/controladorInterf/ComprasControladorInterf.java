@@ -14,4 +14,6 @@ import modelo.ModeloCompras;
 public interface ComprasControladorInterf {
     
     void IngresarCompras (ModeloCompras compras);
+    
+    ModeloCompras ConsultarCompra (ModeloCompras compras);
 }
