@@ -288,8 +288,7 @@ public class panelCompras extends javax.swing.JPanel {
         jLabel7.setText("Filtrar por:");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 562, 120, -1));
 
-        txtFiltroNombre.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        txtFiltroNombre.setForeground(new java.awt.Color(204, 204, 204));
+        txtFiltroNombre.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtFiltroNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtFiltroNombreKeyTyped(evt);

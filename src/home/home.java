@@ -22,6 +22,8 @@ public class home extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+        btn_home.setVisible(false);
+        btn_proveedores.setVisible(false);
         
     }
 
@@ -39,7 +41,7 @@ public class home extends javax.swing.JFrame {
         btn_salir = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
-        btn_ventas1 = new javax.swing.JButton();
+        btn_proveedores = new javax.swing.JButton();
         panelPrincipal = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -124,16 +126,16 @@ public class home extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("AUTO ESTÉREO LA 47");
 
-        btn_ventas1.setBackground(new java.awt.Color(40, 48, 71));
-        btn_ventas1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        btn_ventas1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_ventas1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/unidades-de-red.png"))); // NOI18N
-        btn_ventas1.setText("Proveedores");
-        btn_ventas1.setIconTextGap(15);
-        btn_ventas1.setOpaque(false);
-        btn_ventas1.addActionListener(new java.awt.event.ActionListener() {
+        btn_proveedores.setBackground(new java.awt.Color(40, 48, 71));
+        btn_proveedores.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        btn_proveedores.setForeground(new java.awt.Color(255, 255, 255));
+        btn_proveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/unidades-de-red.png"))); // NOI18N
+        btn_proveedores.setText("Proveedores");
+        btn_proveedores.setIconTextGap(15);
+        btn_proveedores.setOpaque(false);
+        btn_proveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ventas1ActionPerformed(evt);
+                btn_proveedoresActionPerformed(evt);
             }
         });
 
@@ -150,7 +152,7 @@ public class home extends javax.swing.JFrame {
                             .addComponent(btn_compras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_invetario, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
                             .addComponent(btn_home, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                            .addComponent(btn_ventas1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)))
+                            .addComponent(btn_proveedores, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -182,7 +184,7 @@ public class home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_ventas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_ventas1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_proveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(158, 158, 158)
                 .addComponent(btn_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
@@ -287,7 +289,7 @@ public class home extends javax.swing.JFrame {
         panelPrincipal.repaint();
     }//GEN-LAST:event_btn_invetarioActionPerformed
 
-    private void btn_ventas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ventas1ActionPerformed
+    private void btn_proveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_proveedoresActionPerformed
         panelProveedor pp = new panelProveedor();
         pp.setSize(1000, 692);
         pp.setLocation(60,7);
@@ -296,7 +298,7 @@ public class home extends javax.swing.JFrame {
         panelPrincipal.add(pp, BorderLayout.CENTER);
         panelPrincipal.revalidate();
         panelPrincipal.repaint();
-    }//GEN-LAST:event_btn_ventas1ActionPerformed
+    }//GEN-LAST:event_btn_proveedoresActionPerformed
 
     
     public static void main(String args[]) {
@@ -307,9 +309,9 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JButton btn_compras;
     private javax.swing.JButton btn_home;
     private javax.swing.JButton btn_invetario;
+    private javax.swing.JButton btn_proveedores;
     private javax.swing.JButton btn_salir;
     private javax.swing.JButton btn_ventas;
-    private javax.swing.JButton btn_ventas1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
