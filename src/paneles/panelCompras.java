@@ -276,11 +276,6 @@ public class panelCompras extends javax.swing.JPanel {
         add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(921, 144, 59, -1));
 
         txtClave.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtClaveKeyTyped(evt);
-            }
-        });
         add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 108, 100, 30));
 
         jLabel7.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
@@ -448,13 +443,6 @@ public class panelCompras extends javax.swing.JPanel {
     private void btnEliminarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseExited
         btnEliminar.setBackground(new Color(97, 212, 195));
     }//GEN-LAST:event_btnEliminarMouseExited
-
-    private void txtClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyTyped
-        char numero = evt.getKeyChar();
-        if (numero < '0' || numero > '9') {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtClaveKeyTyped
 
     private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
         char numero = evt.getKeyChar();
