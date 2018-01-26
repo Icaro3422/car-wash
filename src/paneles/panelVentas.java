@@ -2,6 +2,7 @@ package paneles;
 
 import conexion.conexion;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -234,18 +235,18 @@ public class panelVentas extends javax.swing.JPanel {
         lbCambio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbCambio.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lbCambio.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
-        add(lbCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 610, 221, 39));
+        add(lbCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 640, 221, 39));
 
         jLabel17.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel17.setText("Cambio");
-        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 570, -1, -1));
+        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 600, -1, -1));
 
         jLabel19.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel19.setText("Importe");
         add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 490, -1, -1));
 
         txtImporte.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        add(txtImporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 530, 140, 30));
+        add(txtImporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 540, 140, 30));
 
         lbTotal.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         lbTotal.setForeground(new java.awt.Color(255, 0, 0));
@@ -267,7 +268,7 @@ public class panelVentas extends javax.swing.JPanel {
                 btn_DevolverMouseClicked(evt);
             }
         });
-        add(btn_Devolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 610, -1, -1));
+        add(btn_Devolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 640, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseEntered
@@ -378,7 +379,7 @@ public class panelVentas extends javax.swing.JPanel {
     private void subTotalVenta(){
         DecimalFormat formato = new DecimalFormat("###,###");
         int subtotal=0;
-        
+       
         for(int i=0; i<tbResgistrosVentas.getRowCount(); i++){
             
             subtotal = subtotal+(Integer.valueOf((String) modelo.getValueAt(i,4))*Integer.valueOf((String) modelo.getValueAt(i, 3)));
@@ -393,6 +394,9 @@ public class panelVentas extends javax.swing.JPanel {
 
             lbManoObra.setText(formato.format(Integer.valueOf(manoObra)));
             lbTotal.setText(String.valueOf(formato.format(total)));
+            
+            
+                    
         
     }
     
