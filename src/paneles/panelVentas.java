@@ -403,8 +403,23 @@ public class panelVentas extends javax.swing.JPanel {
     private void cambio(){
         DecimalFormat formato = new DecimalFormat("###,###");
         int importe = Integer.valueOf(txtImporte.getText());
-        int total = Integer.valueOf(lbTotal.getText());
-        int cambio = importe - total;
+        String total = lbTotal.getText();
+        String cadenaA,cadenaB; 
+        String ultraTotal="";
+        for(int i = 0 ; i < total.length(); i++){
+            
+            if(total.charAt(i)== '.'){
+                cadenaA = total.substring(0, i);
+                cadenaB = total.substring(i+1, total.length());
+                
+                ultraTotal = cadenaA+cadenaB;
+            }
+            
+            
+        }
+        
+        System.out.println(ultraTotal);
+        int cambio = importe - Integer.valueOf(ultraTotal);
         lbCambio.setText(String.valueOf(formato.format(cambio)));     
         
     }
