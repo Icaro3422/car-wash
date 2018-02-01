@@ -2,6 +2,8 @@ package paneles;
 
 import conexion.conexion;
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -48,6 +50,11 @@ public class panelVentas extends javax.swing.JPanel {
         tbResgistrosVentas.setRowSorter(trs);
         txtManoObra.setText("0");
         txtImporte.setText("0");
+        //mientras realizamos los descuentos mejores
+        lbDescuento.setVisible(false);
+        cbDescuento.setVisible(false);
+        lbDescuentoTot.setVisible(false);
+        lbRalla.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -66,16 +73,13 @@ public class panelVentas extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         txtManoObra = new javax.swing.JTextField();
         cbDescuento = new javax.swing.JComboBox();
-        jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        lbDescuentoTot = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        lbRalla = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         lbSubTotal = new javax.swing.JLabel();
         lbManoObra = new javax.swing.JLabel();
         lbDescuento = new javax.swing.JLabel();
@@ -181,11 +185,6 @@ public class panelVentas extends javax.swing.JPanel {
         cbDescuento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar...", "0%", "5%", "10%", "15%" }));
         add(cbDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 114, -1, 30));
 
-        jLabel7.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Descuento");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 85, -1, -1));
-
         jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel3.setText("Subtotal ");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 496, -1, -1));
@@ -198,25 +197,18 @@ public class panelVentas extends javax.swing.JPanel {
         jLabel8.setText("TOTAL");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 605, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jLabel9.setText("Descuento");
-        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 551, 92, -1));
-
-        jLabel10.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jLabel10.setText("IVA %");
-        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 578, 66, -1));
+        lbDescuentoTot.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lbDescuentoTot.setText("Descuento");
+        add(lbDescuentoTot, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 551, 92, -1));
 
         jLabel11.setText("----------------------------");
         add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 498, 123, 19));
 
-        jLabel12.setText("----------------------------");
-        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 553, 122, 19));
+        lbRalla.setText("----------------------------");
+        add(lbRalla, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 553, 122, 19));
 
         jLabel14.setText("----------------------------");
         add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 525, -1, 19));
-
-        jLabel16.setText("----------------------------");
-        add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 580, -1, 19));
 
         lbSubTotal.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         add(lbSubTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 496, 198, 21));
@@ -245,8 +237,8 @@ public class panelVentas extends javax.swing.JPanel {
         jLabel19.setText("Importe");
         add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 490, -1, -1));
 
-        txtImporte.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        add(txtImporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 540, 140, 30));
+        txtImporte.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        add(txtImporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 530, 220, 40));
 
         lbTotal.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         lbTotal.setForeground(new java.awt.Color(255, 0, 0));
@@ -389,10 +381,32 @@ public class panelVentas extends javax.swing.JPanel {
             int total;
 
             total = subtotal + Integer.valueOf(manoObra);
+            
+            
 
             lbSubTotal.setText(String.valueOf(formato.format(subtotal)));
 
             lbManoObra.setText(formato.format(Integer.valueOf(manoObra)));
+            
+            /*por realizar descuento
+            double descuento;
+            switch(cbDescuento.getSelectedIndex()){
+                case 1: descuento = total *0;
+                lbDescuento.setText(String.valueOf(formato.format(descuento)));
+                break;
+                case 2: descuento = total * 0.05;
+                lbDescuento.setText(String.valueOf(formato.format(descuento)));
+                break;
+                case 3: descuento = total * 0.10;
+                lbDescuento.setText(String.valueOf(formato.format(descuento)));
+                break;
+                case 4: descuento = total * 0.15;
+                lbDescuento.setText(String.valueOf(formato.format(descuento)));
+                break;
+                default: descuento=0;
+                    lbDescuento.setText(String.valueOf(formato.format(descuento)));    
+            }
+                    */
             lbTotal.setText(String.valueOf(formato.format(total)));
             
             
@@ -413,9 +427,7 @@ public class panelVentas extends javax.swing.JPanel {
                 cadenaB = total.substring(i+1, total.length());
                 
                 ultraTotal = cadenaA+cadenaB;
-            }
-            
-            
+            }  
         }
         
         System.out.println(ultraTotal);
@@ -436,11 +448,8 @@ public class panelVentas extends javax.swing.JPanel {
     private javax.swing.JButton btn_Devolver;
     private javax.swing.JComboBox cbDescuento;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -448,15 +457,15 @@ public class panelVentas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbCambio;
     private javax.swing.JLabel lbDescuento;
+    private javax.swing.JLabel lbDescuentoTot;
     private javax.swing.JLabel lbIva;
     private javax.swing.JLabel lbManoObra;
+    private javax.swing.JLabel lbRalla;
     private javax.swing.JLabel lbSubTotal;
     private javax.swing.JLabel lbTotal;
     private javax.swing.JTable tbResgistrosVentas;
