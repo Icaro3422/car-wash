@@ -390,20 +390,17 @@ public class panelVentas extends javax.swing.JPanel {
         String manoObra = txtManoObra.getText();
         int total;
 
-<<<<<<< HEAD
+
             total = subtotal + Integer.valueOf(manoObra);
             
-            
-=======
-        total = subtotal + Integer.valueOf(manoObra);
->>>>>>> origin/master
+
 
         lbSubTotal.setText(String.valueOf(formato.format(subtotal)));
 
         lbManoObra.setText(formato.format(Integer.valueOf(manoObra)));
         lbTotal.setText(String.valueOf(formato.format(total)));
 
-<<<<<<< HEAD
+
             lbManoObra.setText(formato.format(Integer.valueOf(manoObra)));
             
             /*por realizar descuento
@@ -430,8 +427,7 @@ public class panelVentas extends javax.swing.JPanel {
             
                     
         
-=======
->>>>>>> origin/master
+
     }
 
     private void cambio() {
@@ -444,17 +440,12 @@ public class panelVentas extends javax.swing.JPanel {
 
             if (total.charAt(i) == '.') {
                 cadenaA = total.substring(0, i);
-<<<<<<< HEAD
+
                 cadenaB = total.substring(i+1, total.length());
                 
                 ultraTotal = cadenaA+cadenaB;
             }  
-=======
-                cadenaB = total.substring(i + 1, total.length());
 
-                ultraTotal = cadenaA + cadenaB;
-            }
->>>>>>> origin/master
         }
         System.out.println(ultraTotal);
         int cambio = importe - Integer.valueOf(ultraTotal);

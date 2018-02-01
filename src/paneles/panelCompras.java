@@ -477,7 +477,7 @@ public class panelCompras extends javax.swing.JPanel {
     private void calendario() {
         Calendar calendario = new GregorianCalendar();
         String dia = Integer.toString(calendario.get(Calendar.DATE));
-        String mes = Integer.toString(1);
+        String mes = Integer.toString(calendario.get(Calendar.MONTH));
         String annio = Integer.toString(calendario.get(Calendar.YEAR));
         txtFecha.setText(annio + "-" + mes + "-" + dia);
     }
