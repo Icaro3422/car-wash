@@ -8,7 +8,7 @@ package controladorImpl;
 import modelo.ModeloCompras;
 import controladorInterf.ComprasControladorInterf;
 import javax.swing.JOptionPane;
-import presistenciaImpl.ComprasPersistenciaImpl;
+import presistenciaImpl.ComprasRepositorioImpl;
 
 /**
  *
@@ -16,11 +16,11 @@ import presistenciaImpl.ComprasPersistenciaImpl;
  */
 public class ComprasImpl implements ComprasControladorInterf {
 
-    private ComprasPersistenciaImpl comprasPersistenciaImpl;
+    private ComprasRepositorioImpl comprasPersistenciaImpl;
 
     @Override
     public void IngresarCompras(ModeloCompras compras) {
-        comprasPersistenciaImpl = new ComprasPersistenciaImpl();
+        comprasPersistenciaImpl = new ComprasRepositorioImpl();
         if (compras.getCodigo() != null && compras.getCantidad() > 0
                 && compras.getPrecioCompra() > 0 && compras.getPrecioVenta() > 0) {
             comprasPersistenciaImpl.IngresarCompra(compras);

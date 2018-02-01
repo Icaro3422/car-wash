@@ -11,7 +11,7 @@ import modelo.ModeloCompras;
  *
  * @author jhon.zuluaga
  */
-public interface ComprasPersistenciaInterf {
+public interface ComprasRepositorioInterf {
     
     void IngresarCompra (ModeloCompras compras);
     

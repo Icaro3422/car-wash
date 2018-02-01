@@ -1,6 +1,7 @@
 package paneles;
 
 import conexion.conexion;
+import controladorImpl.VentasImpl;
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -13,6 +14,7 @@ import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import modelo.ModeloVentas;
 
 /**
  *
@@ -24,28 +26,28 @@ public class panelVentas extends javax.swing.JPanel {
     PreparedStatement ps;
     ResultSet rs;
     TableRowSorter trs;
-    
-    
+    private ModeloVentas ventas;
+    private VentasImpl ventasImpl;
+
     DefaultTableModel modelo = new DefaultTableModel() {
 
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return column == 5;
-            }
-        };
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return column == 5;
+        }
+    };
 
-        
     public panelVentas() {
-        initComponents();  
-        
+        initComponents();
+
         modelo.addColumn("codigo");
         modelo.addColumn("nombre");
         modelo.addColumn("proveedor");
         modelo.addColumn("cantidad");
         modelo.addColumn("precioVenta");
-        
+
         tbResgistrosVentas.setModel(modelo);
-        
+
         trs = new TableRowSorter(modelo);
         tbResgistrosVentas.setRowSorter(trs);
         txtManoObra.setText("0");
@@ -272,11 +274,16 @@ public class panelVentas extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAgregarMouseExited
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        
-        String codigo = txtClave.getText();
-        int cantidad = Integer.parseInt(txtCantidad.getText());
-        BuscarPorCodigo(codigo, cantidad); 
-        
+        ventasImpl = new VentasImpl();
+        ventas = new ModeloVentas();
+        if (txtClave.getText() != null) {
+            ventas.setCodigo(txtClave.getText());
+            ventas.setCantidad(Integer.parseInt(txtCantidad.getText()));
+            if (ventasImpl.BuscarPorCodigo(ventas)) {
+                agregarTabla(ventas);
+                limpiarCajas();
+            }
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
@@ -296,10 +303,10 @@ public class panelVentas extends javax.swing.JPanel {
     private void btn_DevolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_DevolverMouseClicked
         cambio();
     }//GEN-LAST:event_btn_DevolverMouseClicked
-    
-    public void BuscarPorCodigo (String codigo, int cantidadPedido){
-       String nombre = "";
-       int precioVenta = 0;
+    /*
+    public void BuscarPorCodigo(String codigo, int cantidadPedido) {
+        String nombre = "";
+        int precioVenta = 0;
         try {
             conexion = new conexion();
             Connection co = conexion.getConnection();
@@ -308,21 +315,23 @@ public class panelVentas extends javax.swing.JPanel {
             ps.setInt(2, cantidadPedido);
             rs = ps.executeQuery();
             if (rs.next()) {
-                nombre  = (rs.getString("nombre"));
+                nombre = (rs.getString("nombre"));
                 precioVenta = (rs.getInt("precioVenta"));
                 actualizarInventario(codigo, cantidadPedido);
-            } else {  
+            } else {
                 JOptionPane.showMessageDialog(null, "La cantidad solicitada del producto no está disponible");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
-    
-    
-    //public void insertFacturacion (int codigo, int cantidad, int precioVentaUnit, int precioTotal){}
-    
-    public void actualizarInventario (String codigo,int cantidad){
+
+    public void insertFacturacion (int codigo, int cantidad, int precioVentaUnit, int precioTotal){
+        conexion = new conexion();
+        
+    }
+     
+    public void actualizarInventario(String codigo, int cantidad) {
         conexion = new conexion();
         try (Connection reg = conexion.getConnection()) {
             ps = reg.prepareStatement("UPDATE inventario SET cantidad=cantidad-? WHERE codigo=?");
@@ -331,7 +340,7 @@ public class panelVentas extends javax.swing.JPanel {
             int res = ps.executeUpdate();
             if (res > 0) {
                 JOptionPane.showMessageDialog(null, "Venta Realizada");
-                agregarTabla(codigo,cantidad);
+                agregarTabla(ventas);
                 limpiarCajas();
                 subTotalVenta();
             } else {
@@ -341,51 +350,60 @@ public class panelVentas extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
-    private void agregarTabla(String codigo,int cantidad) {
+     */
+    private void agregarTabla(ModeloVentas ventas) {
         conexion = new conexion();
         Connection co = conexion.getConnection();
         String[] dato = new String[6];
-
+        String query = "SELECT codigo,nombre,proveedor,cantidad,precioVenta FROM inventario WHERE codigo = ? and cantidad >= ?";
         try {
-            ps = co.prepareStatement("SELECT codigo,nombre,proveedor,cantidad,precioVenta FROM inventario WHERE codigo = ? and cantidad >= ?");
-            ps.setString(1, codigo);
-            ps.setInt(2, cantidad);
-           
-              rs = ps.executeQuery();
-            
+            ps = co.prepareStatement(query);
+            int i = 1;
+            ps.setString(i++, ventas.getCodigo());
+            ps.setInt(i++, ventas.getCantidad());
+
+            rs = ps.executeQuery();
+
             while (rs.next()) {
 
                 dato[0] = rs.getString(1);
                 dato[1] = rs.getString(2);
                 dato[2] = rs.getString(3);
-                dato[3] = String.valueOf(cantidad);
+                dato[3] = String.valueOf(ventas.getCantidad());
                 dato[4] = rs.getString(5);
                 modelo.addRow(dato);
             }
         } catch (SQLException ex) {
-           System.out.println(ex);
+            System.out.println(ex);
         }
     }
-    
-    private void subTotalVenta(){
-        DecimalFormat formato = new DecimalFormat("###,###");
-        int subtotal=0;
-       
-        for(int i=0; i<tbResgistrosVentas.getRowCount(); i++){
-            
-            subtotal = subtotal+(Integer.valueOf((String) modelo.getValueAt(i,4))*Integer.valueOf((String) modelo.getValueAt(i, 3)));
-            
-        }
-            String manoObra = txtManoObra.getText();
-            int total;
 
+    private void subTotalVenta() {
+        DecimalFormat formato = new DecimalFormat("###,###");
+        int subtotal = 0;
+
+        for (int i = 0; i < tbResgistrosVentas.getRowCount(); i++) {
+
+            subtotal = subtotal + (Integer.valueOf((String) modelo.getValueAt(i, 4)) * Integer.valueOf((String) modelo.getValueAt(i, 3)));
+
+        }
+        String manoObra = txtManoObra.getText();
+        int total;
+
+<<<<<<< HEAD
             total = subtotal + Integer.valueOf(manoObra);
             
             
+=======
+        total = subtotal + Integer.valueOf(manoObra);
+>>>>>>> origin/master
 
-            lbSubTotal.setText(String.valueOf(formato.format(subtotal)));
+        lbSubTotal.setText(String.valueOf(formato.format(subtotal)));
 
+        lbManoObra.setText(formato.format(Integer.valueOf(manoObra)));
+        lbTotal.setText(String.valueOf(formato.format(total)));
+
+<<<<<<< HEAD
             lbManoObra.setText(formato.format(Integer.valueOf(manoObra)));
             
             /*por realizar descuento
@@ -412,37 +430,43 @@ public class panelVentas extends javax.swing.JPanel {
             
                     
         
+=======
+>>>>>>> origin/master
     }
-    
-    private void cambio(){
+
+    private void cambio() {
         DecimalFormat formato = new DecimalFormat("###,###");
         int importe = Integer.valueOf(txtImporte.getText());
         String total = lbTotal.getText();
-        String cadenaA,cadenaB; 
-        String ultraTotal="";
-        for(int i = 0 ; i < total.length(); i++){
-            
-            if(total.charAt(i)== '.'){
+        String cadenaA, cadenaB;
+        String ultraTotal = "";
+        for (int i = 0; i < total.length(); i++) {
+
+            if (total.charAt(i) == '.') {
                 cadenaA = total.substring(0, i);
+<<<<<<< HEAD
                 cadenaB = total.substring(i+1, total.length());
                 
                 ultraTotal = cadenaA+cadenaB;
             }  
+=======
+                cadenaB = total.substring(i + 1, total.length());
+
+                ultraTotal = cadenaA + cadenaB;
+            }
+>>>>>>> origin/master
         }
-        
         System.out.println(ultraTotal);
         int cambio = importe - Integer.valueOf(ultraTotal);
-        lbCambio.setText(String.valueOf(formato.format(cambio)));     
-        
+        lbCambio.setText(String.valueOf(formato.format(cambio)));
+
     }
-    
-  
-    
-    private void limpiarCajas(){
+
+    private void limpiarCajas() {
         txtClave.setText(null);
         txtCantidad.setText(null);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btn_Devolver;

@@ -12,13 +12,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import modelo.ModeloCompras;
-import persistenciaInterf.ComprasPersistenciaInterf;
+import persistenciaInterf.ComprasRepositorioInterf;
 
 /**
  *
  * @author jhon.zuluaga
  */
-public class ComprasPersistenciaImpl implements ComprasPersistenciaInterf {
+public class ComprasRepositorioImpl implements ComprasRepositorioInterf {
 
     conexion conexion;
     PreparedStatement ps;
