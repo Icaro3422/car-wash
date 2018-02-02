@@ -356,7 +356,7 @@ public class panelCompras extends javax.swing.JPanel {
             ps.setInt(i++, Integer.parseInt(txtCantidad.getText()));
             ps.setInt(i++, Integer.parseInt(txtPrecioCompra.getText()));
             ps.setInt(i++, Integer.parseInt(txtPrecioVenta.getText()));
-            ps.setInt(i++, Integer.parseInt(txtClave.getText()));
+            ps.setString(i++, txtClave.getText());
 
             int res = ps.executeUpdate();
             if (res > 0) {
@@ -378,7 +378,7 @@ public class panelCompras extends javax.swing.JPanel {
             try (Connection reg = conexion.getConnection()) {
                 ps = reg.prepareStatement("DELETE FROM compras WHERE codigo=?");
                 int i = 1;
-                ps.setInt(i++, Integer.parseInt(txtClave.getText()));
+                ps.setString(i++,txtClave.getText());
 
                 int res = ps.executeUpdate();
                 if (res > 0) {

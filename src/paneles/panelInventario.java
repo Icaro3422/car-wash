@@ -393,7 +393,7 @@ public class panelInventario extends javax.swing.JPanel {
             conexion = new conexion();
             try (Connection reg = conexion.getConnection()) {
                 ps = reg.prepareStatement("DELETE FROM inventario WHERE codigo=?");
-                ps.setInt(1, Integer.parseInt(txtCodigo.getText()));
+                ps.setString(1, txtCodigo.getText());
 
                 int res = ps.executeUpdate();
                 if (res > 0) {
