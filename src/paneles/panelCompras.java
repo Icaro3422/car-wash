@@ -391,7 +391,7 @@ public class panelCompras extends javax.swing.JPanel {
                 }
             }
         } catch (SQLException | NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "noooooooo");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
