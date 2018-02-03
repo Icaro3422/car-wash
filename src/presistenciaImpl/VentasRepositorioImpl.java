@@ -38,6 +38,7 @@ public class VentasRepositorioImpl implements VentasRepositorioInterf{
                 ventas.setPrecioUnidad(rs.getInt("precioVenta"));
                 ventas.setNombre(rs.getString("nombre"));
             } else {
+                ventas.setCantidad(0);
                 JOptionPane.showMessageDialog(null, "La cantidad solicitada del producto no está disponible");
             }
         } catch (SQLException ex) {
@@ -56,7 +57,6 @@ public class VentasRepositorioImpl implements VentasRepositorioInterf{
             ps.setString(2, ventas.getCodigo());
             int res = ps.executeUpdate();
             if (res > 0) {
-                JOptionPane.showMessageDialog(null, "Venta Realizada");
                 respuesta = true;
             } else {
                 JOptionPane.showMessageDialog(null, "Error: El Inventario no ha podido ser modificado");
@@ -70,11 +70,11 @@ public class VentasRepositorioImpl implements VentasRepositorioInterf{
     @Override
     public void IngresarVentasRepositorio(ModeloVentas ventas) {
         conexion = new conexion();
-        String query = "insert into ventas (consecutivoFactura,codigo,cantidad,precioUnidad,precioTotalProducto) values (?,?,?,?,?)";
+        String query = "insert into ventas (consecutivoFactura,codigo,cantidad,precioUnidad,precioTotalProducto)" 
+                       + "select consecutivo,?,?,?,? from CONSECUTIVO";
         try (Connection reg = conexion.getConnection()) {
             ps = reg.prepareStatement(query);
             int i = 1;
-            ps.setInt(i++, ventas.getConsecutivo().getConsecutivo());
             ps.setString(i++, ventas.getCodigo());
             ps.setInt(i++, ventas.getCantidad());
             ps.setInt(i++, ventas.getPrecioUnidad());

@@ -6,6 +6,7 @@
 package controladorImpl;
 
 import controladorInterf.VentasControladorInterf;
+import javax.swing.JOptionPane;
 import modelo.ModeloVentas;
 import presistenciaImpl.VentasRepositorioImpl;
 
@@ -24,10 +25,22 @@ public class VentasImpl implements VentasControladorInterf {
         boolean respuesta = false;
         if (ventas.getCantidad() > 0) {
             ventasRepositorioImpl.BuscarPorCodigoRepositorio(ventas);
+            if (ActualizarInventario(ventas)) {
+                //IngresarVentas(ventas);
+                respuesta = true;
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "La cantidad solicitada del producto no está disponible");
+            }
         }
-        if (ventasRepositorioImpl.actualizarInventarioRepositorio(ventas)) {
-            respuesta = true;
+        return respuesta;
+    }
+    
+    public boolean ActualizarInventario(ModeloVentas ventas){
+        boolean respuesta = false;
+        if (ventas.getCantidad() > 0){
             IngresarVentas(ventas);
+                respuesta = true;
         }
         return respuesta;
     }
@@ -35,8 +48,7 @@ public class VentasImpl implements VentasControladorInterf {
     @Override
     public void IngresarVentas(ModeloVentas ventas) {
         consecutivoImpl = new ConsecutivoImpl();
-        if(ventas != null){
-            consecutivoImpl.consultarConsecutivo(ventas);
+        if (ventas != null) {
             ventasRepositorioImpl.IngresarVentasRepositorio(ventas);
         }
     }

@@ -279,6 +279,9 @@ public class panelVentas extends javax.swing.JPanel {
                 agregarTabla(ventas);
                 limpiarCajas();
             }
+            else{
+                limpiarCajas();
+            }
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
