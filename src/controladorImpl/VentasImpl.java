@@ -26,7 +26,6 @@ public class VentasImpl implements VentasControladorInterf {
         if (ventas.getCantidad() > 0) {
             ventasRepositorioImpl.BuscarPorCodigoRepositorio(ventas);
             if (ActualizarInventario(ventas)) {
-                //IngresarVentas(ventas);
                 respuesta = true;
             }
             else {
