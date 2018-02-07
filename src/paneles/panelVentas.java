@@ -277,6 +277,7 @@ public class panelVentas extends javax.swing.JPanel {
             ventas.setCantidad(Integer.parseInt(txtCantidad.getText()));
             if (ventasImpl.BuscarPorCodigo(ventas)) {
                 agregarTabla(ventas);
+                subTotalVenta();
                 limpiarCajas();
             }
             else{
@@ -355,25 +356,7 @@ public class panelVentas extends javax.swing.JPanel {
 
             lbManoObra.setText(formato.format(Integer.valueOf(manoObra)));
             
-            /*por realizar descuento
-            double descuento;
-            switch(cbDescuento.getSelectedIndex()){
-                case 1: descuento = total *0;
-                lbDescuento.setText(String.valueOf(formato.format(descuento)));
-                break;
-                case 2: descuento = total * 0.05;
-                lbDescuento.setText(String.valueOf(formato.format(descuento)));
-                break;
-                case 3: descuento = total * 0.10;
-                lbDescuento.setText(String.valueOf(formato.format(descuento)));
-                break;
-                case 4: descuento = total * 0.15;
-                lbDescuento.setText(String.valueOf(formato.format(descuento)));
-                break;
-                default: descuento=0;
-                    lbDescuento.setText(String.valueOf(formato.format(descuento)));    
-            }
-                    */
+            
             lbTotal.setText(String.valueOf(formato.format(total)));
             
             
@@ -390,7 +373,7 @@ public class panelVentas extends javax.swing.JPanel {
         String ultraTotal = "";
         for (int i = 0; i < total.length(); i++) {
 
-            if (total.charAt(i) == '.') {
+            if (total.charAt(i) == ',') {
                 cadenaA = total.substring(0, i);
 
                 cadenaB = total.substring(i+1, total.length());
