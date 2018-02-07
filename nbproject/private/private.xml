@@ -3,12 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/pc/Desktop/software1/car-wash/src/paneles/panelVentas.java</file>
-            <file>file:/C:/Users/pc/Desktop/software1/car-wash/src/paneles/panelHome.java</file>
-            <file>file:/C:/Users/pc/Desktop/software1/car-wash/src/paneles/panelCompras.java</file>
-            <file>file:/C:/Users/pc/Desktop/software1/car-wash/src/paneles/panelInventario.java</file>
-            <file>file:/C:/Users/pc/Desktop/software1/car-wash/src/controladorImpl/ComprasImpl.java</file>
-            <file>file:/C:/Users/pc/Desktop/software1/car-wash/src/presistenciaImpl/VentasRepositorioImpl.java</file>
+            <file>file:/D:/Inventario/src/controladorInterf/VentasControladorInterf.java</file>
+            <file>file:/D:/Inventario/src/presistenciaImpl/VentasRepositorioImpl.java</file>
+            <file>file:/D:/Inventario/src/paneles/panelVentas.java</file>
+            <file>file:/D:/Inventario/src/controladorImpl/VentasImpl.java</file>
+            <file>file:/D:/Inventario/src/persistenciaInterf/VentasRepositorioInterf.java</file>
         </group>
     </open-files>
 </project-private>

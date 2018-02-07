@@ -35,11 +35,13 @@ public class VentasImpl implements VentasControladorInterf {
         return respuesta;
     }
     
+    @Override
     public boolean ActualizarInventario(ModeloVentas ventas){
         boolean respuesta = false;
         if (ventas.getCantidad() > 0){
+            ventasRepositorioImpl.actualizarInventarioRepositorio(ventas);
             IngresarVentas(ventas);
-                respuesta = true;
+            respuesta = true;
         }
         return respuesta;
     }

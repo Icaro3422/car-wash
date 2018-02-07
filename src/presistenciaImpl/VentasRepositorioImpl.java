@@ -48,7 +48,7 @@ public class VentasRepositorioImpl implements VentasRepositorioInterf{
     }
 
     @Override
-    public boolean actualizarInventarioRepositorio (ModeloVentas ventas) {
+    public void actualizarInventarioRepositorio (ModeloVentas ventas) {
         conexion = new conexion();
         boolean respuesta = false;
         try (Connection reg = conexion.getConnection()) {
@@ -56,7 +56,7 @@ public class VentasRepositorioImpl implements VentasRepositorioInterf{
             ps.setInt(1, ventas.getCantidad());
             ps.setString(2, ventas.getCodigo());
             int res = ps.executeUpdate();
-            if (res > 0) {
+            if (res > 0) {           
                 respuesta = true;
             } else {
                 JOptionPane.showMessageDialog(null, "Error: El Inventario no ha podido ser modificado");
@@ -64,7 +64,6 @@ public class VentasRepositorioImpl implements VentasRepositorioInterf{
         } catch (SQLException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        return respuesta;
     }
 
     @Override

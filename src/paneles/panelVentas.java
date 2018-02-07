@@ -302,54 +302,7 @@ public class panelVentas extends javax.swing.JPanel {
     private void btn_DevolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_DevolverMouseClicked
         cambio();
     }//GEN-LAST:event_btn_DevolverMouseClicked
-    /*
-    public void BuscarPorCodigo(String codigo, int cantidadPedido) {
-        String nombre = "";
-        int precioVenta = 0;
-        try {
-            conexion = new conexion();
-            Connection co = conexion.getConnection();
-            ps = co.prepareStatement("SELECT codigo,nombre,proveedor,cantidad,precioVenta FROM inventario WHERE codigo=? and cantidad >= ?");
-            ps.setString(1, codigo);
-            ps.setInt(2, cantidadPedido);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                nombre = (rs.getString("nombre"));
-                precioVenta = (rs.getInt("precioVenta"));
-                actualizarInventario(codigo, cantidadPedido);
-            } else {
-                JOptionPane.showMessageDialog(null, "La cantidad solicitada del producto no está disponible");
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-        }
-    }
-
-    public void insertFacturacion (int codigo, int cantidad, int precioVentaUnit, int precioTotal){
-        conexion = new conexion();
-        
-    }
-     
-    public void actualizarInventario(String codigo, int cantidad) {
-        conexion = new conexion();
-        try (Connection reg = conexion.getConnection()) {
-            ps = reg.prepareStatement("UPDATE inventario SET cantidad=cantidad-? WHERE codigo=?");
-            ps.setInt(1, cantidad);
-            ps.setString(2, codigo);
-            int res = ps.executeUpdate();
-            if (res > 0) {
-                JOptionPane.showMessageDialog(null, "Venta Realizada");
-                agregarTabla(ventas);
-                limpiarCajas();
-                subTotalVenta();
-            } else {
-                JOptionPane.showMessageDialog(null, "Error: El Inventario no ha podido ser modificado");
-            }
-        } catch (SQLException | NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
-     */
+    
     private void agregarTabla(ModeloVentas ventas) {
         conexion = new conexion();
         Connection co = conexion.getConnection();

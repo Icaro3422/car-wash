@@ -16,4 +16,6 @@ public interface VentasControladorInterf {
     boolean BuscarPorCodigo (ModeloVentas ventas);
     
     void IngresarVentas (ModeloVentas ventas);
+    
+    boolean ActualizarInventario (ModeloVentas ventas);
 }

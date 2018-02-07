@@ -15,7 +15,7 @@ public interface VentasRepositorioInterf {
     
     ModeloVentas BuscarPorCodigoRepositorio(ModeloVentas ventas);
     
-    boolean actualizarInventarioRepositorio (ModeloVentas ventas);
+    void actualizarInventarioRepositorio (ModeloVentas ventas);
     
     void IngresarVentasRepositorio (ModeloVentas ventas);
 }
